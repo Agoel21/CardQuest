@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using static CSCE361CardGames.Controllers.DeckController.Card;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CSCE361CardGames.Controllers
+namespace ConsoleApp1.Models
 {
-    public class DeckController : Controller
+    public class DeckController
     {
         interface ICard
         {
@@ -55,17 +58,20 @@ namespace CSCE361CardGames.Controllers
             void fillDeck();
             void shuffleDeck();
             void addToDeck(Card card);
-            void takeFromDeck();
+            void takeFromDeck(Card card);
+            /*
             Card[] getDeckOfCards { get; }
+            */
         }
 
         public class Deck : IDeck
         {
-            public Card[] deckOfCards;
+
+            public List<Card> deckOfCards;
 
             public Deck()
             {
-                deckOfCards = new Card[52];
+                deckOfCards = new List<Card>();
             }
 
             public void fillDeck()
@@ -75,32 +81,56 @@ namespace CSCE361CardGames.Controllers
                 {
                     foreach (Card.Ranks r in Enum.GetValues(typeof(Card.Ranks)))
                     {
-                        deckOfCards[i] = new Card(s, r);
+                        Card card = new Card(s, r);
+                        deckOfCards.Add(card);
                         i++;
                     }
                 }
             }
 
+            /* Adapted from: https://code-maze.com/csharp-randomize-list/ */
             public void shuffleDeck()
             {
                 Random random = new Random();
-                deckOfCards = deckOfCards.OrderBy(c => random.Next()).ToArray();
+                for (int j = deckOfCards.Count - 1; j > 0; j--)
+                {
+                    var i = random.Next(deckOfCards.Count);
+                    Card temp = deckOfCards[i];
+                    deckOfCards[i] = deckOfCards[j];
+                    deckOfCards[j] = temp;
+                }
             }
 
             public void addToDeck(Card card)
             {
+                /*
+                Card[] newDeck = new Card[nonFullDeck.deckOfCards.Length + 1];
+                if (card != Array.Find(deckOfCards, element => element == card) || newDeck.Length < 52)
+                {
 
+                }
+                */
+                if (deckOfCards.Count() < 52)
+                {
+                    deckOfCards.Add(card);
+                }
+                else
+                {
+                    Console.WriteLine("Deck is already full");
+                }
             }
 
-            public void takeFromDeck()
+
+            public void takeFromDeck(Card card)
             {
-
+                deckOfCards.Remove(card);
             }
-
-            public Card[] getDeckOfCards
+            /*
+            public List<Card> getDeckOfCards
             {
                 get { return deckOfCards; }
             }
+            */
         }
     }
 }
