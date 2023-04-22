@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1.Models
+namespace ConsoleApp1.Models //TODO: fix this namespace
 {
     public class DeckController
     {
@@ -59,6 +59,7 @@ namespace ConsoleApp1.Models
             void shuffleDeck();
             void addToDeck(Card card);
             void takeFromDeck(Card card);
+            void takeFromDeckAt(int index);
             /*
             Card[] getDeckOfCards { get; }
             */
@@ -124,6 +125,12 @@ namespace ConsoleApp1.Models
             public void takeFromDeck(Card card)
             {
                 deckOfCards.Remove(card);
+            }
+
+
+            public void takeFromDeckAt(int index)
+            {
+                deckOfCards.RemoveAt(index);
             }
             /*
             public List<Card> getDeckOfCards
