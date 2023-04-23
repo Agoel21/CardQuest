@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1.Models //TODO: fix this namespace
+namespace CSCE361CardGames.Controllers //TODO: fix this namespace
 {
     public class DeckController
     {
@@ -59,7 +59,8 @@ namespace ConsoleApp1.Models //TODO: fix this namespace
             void shuffleDeck();
             void addToDeck(Card card);
             void takeFromDeck(Card card);
-            void takeFromDeckAt(int index);
+            Card takeFromDeckAt(int index);
+            List<Card> takeNumCards(int num);
             /*
             Card[] getDeckOfCards { get; }
             */
@@ -104,13 +105,6 @@ namespace ConsoleApp1.Models //TODO: fix this namespace
 
             public void addToDeck(Card card)
             {
-                /*
-                Card[] newDeck = new Card[nonFullDeck.deckOfCards.Length + 1];
-                if (card != Array.Find(deckOfCards, element => element == card) || newDeck.Length < 52)
-                {
-
-                }
-                */
                 if (deckOfCards.Count() < 52)
                 {
                     deckOfCards.Add(card);
@@ -127,11 +121,23 @@ namespace ConsoleApp1.Models //TODO: fix this namespace
                 deckOfCards.Remove(card);
             }
 
-
-            public void takeFromDeckAt(int index)
+            public Card takeFromDeckAt(int index)
             {
+                Card removed = deckOfCards[index];
                 deckOfCards.RemoveAt(index);
+                return removed;
             }
+
+            public List<Card> takeNumCards(int num)
+            {
+                List<Card> cards = new List<Card>();
+                for (int i = 0; i < num; i++)
+                {
+                    cards.Add(takeFromDeckAt(i));
+                }
+                return cards;
+            }
+
             /*
             public List<Card> getDeckOfCards
             {
