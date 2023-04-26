@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSCE361CardGames.Controllers //TODO: fix this namespace
+namespace CSCE361CardGames.Controllers
 {
     public class DeckController
     {
@@ -12,7 +12,6 @@ namespace CSCE361CardGames.Controllers //TODO: fix this namespace
         {
             Card.Suits Suit { get; set; }
             Card.Ranks Rank { get; set; }
-
         }
 
         public class Card : ICard
@@ -55,12 +54,12 @@ namespace CSCE361CardGames.Controllers //TODO: fix this namespace
 
         interface IDeck
         {
-            void fillDeck();
-            void shuffleDeck();
-            void addToDeck(Card card);
-            void takeFromDeck(Card card);
-            Card takeFromDeckAt(int index);
-            List<Card> takeNumCards(int num);
+            void FillDeck();
+            void ShuffleDeck();
+            void AddToDeck(Card card);
+            void TakeFromDeck(Card card);
+            Card TakeFromDeckAt(int index);
+            List<Card> TakeNumCards(int num);
             /*
             Card[] getDeckOfCards { get; }
             */
@@ -69,21 +68,16 @@ namespace CSCE361CardGames.Controllers //TODO: fix this namespace
         public class Deck : IDeck
         {
 
-            public List<Card> deckOfCards;
+            public List<Card> deckOfCards = new();
 
-            public Deck()
-            {
-                deckOfCards = new List<Card>();
-            }
-
-            public void fillDeck()
+            public void FillDeck()
             {
                 int i = 0;
                 foreach (Card.Suits s in Enum.GetValues(typeof(Card.Suits)))
                 {
                     foreach (Card.Ranks r in Enum.GetValues(typeof(Card.Ranks)))
                     {
-                        Card card = new Card(s, r);
+                        Card card = new(s, r);
                         deckOfCards.Add(card);
                         i++;
                     }
@@ -91,21 +85,19 @@ namespace CSCE361CardGames.Controllers //TODO: fix this namespace
             }
 
             /* Adapted from: https://code-maze.com/csharp-randomize-list/ */
-            public void shuffleDeck()
+            public void ShuffleDeck()
             {
-                Random random = new Random();
+                Random random = new();
                 for (int j = deckOfCards.Count - 1; j > 0; j--)
                 {
                     var i = random.Next(deckOfCards.Count);
-                    Card temp = deckOfCards[i];
-                    deckOfCards[i] = deckOfCards[j];
-                    deckOfCards[j] = temp;
+                    (deckOfCards[j], deckOfCards[i]) = (deckOfCards[i], deckOfCards[j]);
                 }
             }
 
-            public void addToDeck(Card card)
+            public void AddToDeck(Card card)
             {
-                if (deckOfCards.Count() < 52)
+                if (deckOfCards.Count < 52)
                 {
                     deckOfCards.Add(card);
                 }
@@ -116,24 +108,24 @@ namespace CSCE361CardGames.Controllers //TODO: fix this namespace
             }
 
 
-            public void takeFromDeck(Card card)
+            public void TakeFromDeck(Card card)
             {
                 deckOfCards.Remove(card);
             }
 
-            public Card takeFromDeckAt(int index)
+            public Card TakeFromDeckAt(int index)
             {
                 Card removed = deckOfCards[index];
                 deckOfCards.RemoveAt(index);
                 return removed;
             }
 
-            public List<Card> takeNumCards(int num)
+            public List<Card> TakeNumCards(int num)
             {
-                List<Card> cards = new List<Card>();
+                List<Card> cards = new();
                 for (int i = 0; i < num; i++)
                 {
-                    cards.Add(takeFromDeckAt(i));
+                    cards.Add(TakeFromDeckAt(i));
                 }
                 return cards;
             }

@@ -1,5 +1,5 @@
 ﻿using System;
-using ConsoleApp1.Models.DeckController; //TODO: change this namespace once that gets fixed
+using static CSCE361CardGames.Controllers.DeckController;
 
 
 namespace CSCE361CardGames.Controllers
@@ -8,28 +8,28 @@ namespace CSCE361CardGames.Controllers
     {
         interface ICardPile
         {
-            void setCards(List<Card> cards);
-            void grabCards(Deck deck, int amount);
-            void removeCardAt(int index);
+            void SetCards(List<Card> cards);
+            void GrabCards(Deck deck, int amount);
+            void RemoveCardAt(int index);
         }
 
         public class CardPile : ICardPile
         {
-            public List<Card> availableCards;
+            public List<Card> availableCards = new();
 
-            public void setCards(List<Card> cards)
+            public void SetCards(List<Card> cards)
             {
                 availableCards = cards;
             }
 
-            public void grabCards(Deck deck, int amount)
+            public void GrabCards(Deck deck, int amount)
             {
-                if (amount <= deck.Count && amount > 0)
+                if (amount <= deck.deckOfCards.Count && amount > 0)
                 {
-                    Random random = new Random();
+                    Random random = new();
                     for (int i = 0; i < amount; i++)
                     {
-                        availableCards.Add(deck.takeFromDeckAt(random.Next(deck.Count));
+                        availableCards.Add(deck.TakeFromDeckAt(random.Next(deck.deckOfCards.Count)));
                     }
                 }
                 else
@@ -38,9 +38,9 @@ namespace CSCE361CardGames.Controllers
                 }
             }
 
-            public void removeCardAt(int index)
+            public void RemoveCardAt(int index)
             {
-                availableCards.removeAt(index);
+                availableCards.RemoveAt(index);
             }
         }
     }

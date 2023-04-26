@@ -1,0 +1,8 @@
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.csproj.AssemblyReference.cache
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.AssemblyInfoInputs.cache
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.AssemblyInfo.cs
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.csproj.CoreCompileInputs.cache
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.MvcApplicationPartsAssemblyInfo.cache
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.RazorAssemblyInfo.cache
+/Users/sarah/git/CSCE361-Capstone-Project-Group9/obj/Debug/net6.0/CSCE361CardGames.RazorAssemblyInfo.cs

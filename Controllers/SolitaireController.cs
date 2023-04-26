@@ -1,6 +1,7 @@
 ﻿using System;
-using ConsoleApp1.Models.DeckController; //TODO: also fix this namespace
-using CSCE361CardGames.Controllers.SetupController;
+using static CSCE361CardGames.Controllers.DeckController;
+using static CSCE361CardGames.Controllers.DeckController.Card;
+using static CSCE361CardGames.Controllers.SetupController;
 
 namespace CSCE361CardGames.Controllers
 {
@@ -8,70 +9,76 @@ namespace CSCE361CardGames.Controllers
     {
         interface ITableauColumn
         {
-            public void buildColumn(Deck deck, int amountForReserve);
+            public void BuildColumn(Deck deck, int amountForReserve);
             //TODO: enforce alternating color/descending numbers here
         }
 
         public class TableauColumn : ITableauColumn
         {
-            public CardPile reserve;
-            public CardPile active;
+            public CardPile reserve = new();
+            public CardPile active = new();
 
-            public void buildColumn(Deck deck, int amountForReserve)
+            public void BuildColumn(Deck deck, int amountForReserve)
             {
-                reserve.grabCards(deck, amountForReserve);
-                active.grabCards(deck, 1);
+                reserve.GrabCards(deck, amountForReserve);
+                active.GrabCards(deck, 1);
             }
         }
 
         interface IFoundation
         {
             //TODO: enforce numeric stacking rules here, only allow cards of the assigned suit to be added
+            
         }
 
-        public class Foundation(Card.Suits suit) : IFoundation
+        public class Foundation : IFoundation
 	    {
-            public Card.Suits suit = suit;
-		    public CardPile suitFoundation;
+            public Suits suit;
+            public CardPile suitFoundation = new();
+
+            public Foundation(Suits suit)
+            {
+                this.suit = suit;
+            }
         }
 
         interface ISolitaireBoard
         {
-            public void generateBoard();
+            public void GenerateBoard();
         }
 
         public class SolitaireBoard : ISolitaireBoard
         {
-            public Foundation clubsFoundation(Clubs);
-            public Foundation diamondsFoundation(Diamonds);
-            public Foundation heartsFoundation(Hearts);
-            public Foundation spadesFoundation(Spades);
+            public Foundation ClubsFoundation = new(Suits.Clubs);
+            public Foundation DiamondsFoundation = new(Suits.Diamonds);
+            public Foundation HeartsFoundation = new(Suits.Hearts);
+            public Foundation SpadesFoundation = new(Suits.Spades);
 
-            public TableauColumn columnOne;
-            public TableauColumn columnTwo;
-            public TableauColumn columnThree;
-            public TableauColumn columnFour;
-            public TableauColumn columnFive;
-            public TableauColumn columnSix;
-            public TableauColumn columnSeven;
+            public TableauColumn columnOne = new();
+            public TableauColumn columnTwo = new();
+            public TableauColumn columnThree = new();
+            public TableauColumn columnFour = new();
+            public TableauColumn columnFive = new();
+            public TableauColumn columnSix = new();
+            public TableauColumn columnSeven = new();
 
-            public CardPile stockpile;
+            public CardPile stockpile = new();
 
 
-            public void generateBoard()
+            public void GenerateBoard()
             {
                 var deck = new Deck();
-                deck.fillDeck();
+                deck.FillDeck();
 
-                columnOne.buildColumn(deck, 0);
-                columnTwo.buildColumn(deck, 1);
-                columnThree.buildColumn(deck, 2);
-                columnFour.buildColumn(deck, 3);
-                columnFive.buildColumn(deck, 4);
-                columnSix.buildColumn(deck, 5);
-                columnSeven.buildColumn(deck, 6);
+                columnOne.BuildColumn(deck, 0);
+                columnTwo.BuildColumn(deck, 1);
+                columnThree.BuildColumn(deck, 2);
+                columnFour.BuildColumn(deck, 3);
+                columnFive.BuildColumn(deck, 4);
+                columnSix.BuildColumn(deck, 5);
+                columnSeven.BuildColumn(deck, 6);
 
-                stockpile.setCards(deck.deckOfCards);
+                stockpile.SetCards(deck.deckOfCards);
 
 
             }
