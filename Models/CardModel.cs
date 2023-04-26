@@ -1,0 +1,82 @@
+﻿namespace CSCE361CardGames.Models
+{
+    public class CardModel
+    {
+        interface ICard
+        {
+            Card.Suits Suit { get; set; }
+            Card.Ranks Rank { get; set; }
+            Card.Colors Color { get; }
+
+        }
+
+        public class Card : ICard
+        {
+            public enum Suits
+            {
+                Clubs,
+                Diamonds,
+                Hearts,
+                Spades
+            }
+
+            public enum Ranks
+            {
+                Ace,
+                Two,
+                Three,
+                Four,
+                Five,
+                Six,
+                Seven,
+                Eight,
+                Nine,
+                Ten,
+                Jack,
+                Queen,
+                King
+            }
+
+            public enum Colors
+            {
+                Red,
+                Black
+            }
+
+            private Suits suit;
+            private Ranks rank;
+            private Colors color;
+
+            public Card(Suits _suit, Ranks _rank)
+            {
+                suit = _suit;
+                rank = _rank;
+                if (suit == Suits.Clubs || suit == Suits.Spades)
+                {
+                    color = Colors.Black;
+                }
+                else
+                {
+                    color = Colors.Red;
+                }
+            }
+
+            public Suits Suit
+            {
+                get { return suit; }
+                set { suit = value; }
+            }
+
+            public Ranks Rank
+            {
+                get { return rank; }
+                set { rank = value; }
+            }
+
+            public Colors Color
+            {
+                get { return color; }
+            }
+        }
+    }
+}
