@@ -1,5 +1,6 @@
 ﻿using System;
-using static CSCE361CardGames.Controllers.DeckController;
+using static CSCE361CardGames.Models.CardModel;
+using static CSCE361CardGames.Models.DeckModel;
 
 
 namespace CSCE361CardGames.Controllers
@@ -11,6 +12,8 @@ namespace CSCE361CardGames.Controllers
             void SetCards(List<Card> cards);
             void GrabCards(Deck deck, int amount);
             void RemoveCardAt(int index);
+            void AddCard(Card card);
+
         }
 
         public class CardPile : ICardPile
@@ -26,7 +29,7 @@ namespace CSCE361CardGames.Controllers
             {
                 if (amount <= deck.deckOfCards.Count && amount > 0)
                 {
-                    Random random = new();
+                    Random random = new Random();
                     for (int i = 0; i < amount; i++)
                     {
                         availableCards.Add(deck.TakeFromDeckAt(random.Next(deck.deckOfCards.Count)));
@@ -41,6 +44,11 @@ namespace CSCE361CardGames.Controllers
             public void RemoveCardAt(int index)
             {
                 availableCards.RemoveAt(index);
+            }
+
+            public void AddCard(Card card)
+            {
+                availableCards.Add(card);
             }
         }
     }
