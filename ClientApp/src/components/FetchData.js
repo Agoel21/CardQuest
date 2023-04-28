@@ -5,14 +5,18 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { board: [], loading: true };
   }
 
   componentDidMount() {
     this.populateWeatherData();
   }
 
-  static renderForecastsTable(forecasts) {
+    static renderForecastsTable(forecasts) {
+    return (
+        <p>Hi.</p>
+    );
+/*
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -35,12 +39,13 @@ export class FetchData extends Component {
         </tbody>
       </table>
     );
+*/
   }
 
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderForecastsTable(this.state.board);
 
     return (
       <div>
