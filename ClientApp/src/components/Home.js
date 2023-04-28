@@ -7,7 +7,8 @@ export class Home extends Component {
     return (
       <div>
         <h1>Solitaire</h1>
-        <p>Welcome to solitaire!</p>
+            <p>Welcome to solitaire!</p>
+            <p></p>
       </div>
     );
   }

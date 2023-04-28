@@ -1,4 +1,10 @@
-﻿using static CSCE361CardGames.Models.CardModel;
+﻿/*
+ * This controller defines the classes/interfaces
+ * for tableaus, foundations, and the solitaire
+ * board.
+ */
+
+using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
 using static CSCE361CardGames.Controllers.SetupController;
 
@@ -6,6 +12,9 @@ namespace CSCE361CardGames.Controllers
 {
     public class SolitaireController
     {
+        /*
+         * Interface for the TableauColumn class
+         */
         interface ITableauColumn
         {
             public void BuildColumn(Deck deck, int amountForReserve);
@@ -14,6 +23,12 @@ namespace CSCE361CardGames.Controllers
             public void AddToColumn(Card card);
         }
 
+        /*
+         * This class acts as a tableau column which
+         * is a pile of cards with some active cards
+         * (facing up) and some reserve cards (facing
+         * down).
+         */
         public class TableauColumn : ITableauColumn
         {
             public CardPile reserve = new();

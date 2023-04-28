@@ -1,4 +1,4 @@
-import { Counter } from "./components/Counter";
+import { Crazy8s } from "./components/Crazy8s";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 
@@ -9,7 +9,7 @@ const AppRoutes = [
   },
   {
     path: '/counter',
-    element: <Counter />
+    element: <Crazy8s />
   },
   {
     path: '/fetch-data',
