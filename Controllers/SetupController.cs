@@ -7,15 +7,33 @@ namespace CSCE361CardGames.Controllers
 {
     public class SetupController
     {
+        /*
+         * Interface for modifying a pile of cards.
+         */
         interface ICardPile
         {
+            /*
+             * Sets the card pile to a given list of cards.
+             */
             void SetCards(List<Card> cards);
+            /*
+             * Grabs a given amount of cards in a random order from the given deck 
+             * and adds those taken cards to the card pile.
+             */
             void GrabCards(Deck deck, int amount);
+            /*
+             * Removes a card from the pile at a given index.
+             */
             void RemoveCardAt(int index);
+            /*
+             * Adds a card to the card pile.
+             */
             void AddCard(Card card);
-
         }
 
+        /*
+         * Representation of a pile of cards.
+         */
         public class CardPile : ICardPile
         {
             public List<Card> availableCards = new();
@@ -37,7 +55,7 @@ namespace CSCE361CardGames.Controllers
                 }
                 else
                 {
-                    Console.WriteLine("Attempted to take more cards than remain in the deck, or a non-positive amount of cards");
+                    // Console.WriteLine("Attempted to take more cards than remain in the deck, or a non-positive amount of cards");
                 }
             }
 
