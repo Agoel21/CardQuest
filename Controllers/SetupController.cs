@@ -1,4 +1,5 @@
-﻿using static CSCE361CardGames.Models.CardModel;
+﻿using System;
+using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
 
 
@@ -52,3 +53,4 @@ namespace CSCE361CardGames.Controllers
         }
     }
 }
+

@@ -1,4 +1,7 @@
-﻿using static CSCE361CardGames.Controllers.SetupController;
+﻿using System;
+using static CSCE361CardGames.Controllers.DeckController;
+using static CSCE361CardGames.Controllers.DeckController.Card;
+using static CSCE361CardGames.Controllers.SetupController;
 using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
 
