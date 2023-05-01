@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-drag-and-drop": "^3.0.0",
+    "react-dropzone": "^14.2.3"
+  }
+}
