@@ -26,7 +26,7 @@ namespace CSCE361CardGames.Models
         {
             public enum Suits
             {
-                Clubs,
+                Clubs = 1,
                 Diamonds,
                 Hearts,
                 Spades
@@ -34,7 +34,7 @@ namespace CSCE361CardGames.Models
 
             public enum Ranks
             {
-                Ace=1,
+                Ace = 1,
                 Two,
                 Three,
                 Four,
