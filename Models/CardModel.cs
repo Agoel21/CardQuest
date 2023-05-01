@@ -22,7 +22,7 @@
 
             public enum Ranks
             {
-                Ace,
+                Ace=1,
                 Two,
                 Three,
                 Four,
