@@ -1,17 +1,46 @@
-﻿using static CSCE361CardGames.Models.CardModel;
+﻿/*
+ * This model defines the class/interface for
+ * creating and manipulating a deck of cards.
+ */
 
-namespace CSCE361CardGames.Models //TODO: fix this namespace
+using static CSCE361CardGames.Models.CardModel;
+
+namespace CSCE361CardGames.Models
 {
     public class DeckModel
 
     {
-
+        /*
+         * Interface for the Deck class.
+         */
         interface IDeck
         {
+            /*
+             * Fills newly created deck with 52 cards of
+             * every suit and rank.
+             */
             void FillDeck();
+
+            /*
+             * Randomizes the order in the list of cards.
+             */
             void ShuffleDeck();
+
+            /*
+             * Adds the provided card to the deck if
+             * the deck does not already contain 52 cards.
+             */
             void AddToDeck(Card card);
+
+            /*
+             * Removes the requested card from the deck.
+             */
             void TakeFromDeck(Card card);
+
+            /*
+             * Removes the card from the deck at the
+             * provided index.
+             */
             Card TakeFromDeckAt(int index);
             //List<Card> TakeNumCards(int num);
             /*
