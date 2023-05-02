@@ -1,9 +1,21 @@
-﻿namespace CSCE361CardGames.Models
+﻿/*
+ * This model defines the class/interface for
+ * a card object.
+ */
+
+namespace CSCE361CardGames.Models
 {
     public class CardModel
     {
+        /*
+         * Interface for the Card class.
+         */
         interface ICard
         {
+            /*
+             * Methods for getting and setting the suit or rank
+             * of a card and getting the color of a card.
+             */
             Card.Suits Suit { get; set; }
             Card.Ranks Rank { get; set; }
             Card.Colors Color { get; }
@@ -14,7 +26,7 @@
         {
             public enum Suits
             {
-                Clubs,
+                Clubs = 1,
                 Diamonds,
                 Hearts,
                 Spades
@@ -22,7 +34,7 @@
 
             public enum Ranks
             {
-                Ace,
+                Ace = 1,
                 Two,
                 Three,
                 Four,
