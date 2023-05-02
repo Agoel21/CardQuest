@@ -1,0 +1,52 @@
+
+.card {
+    width: 80px;
+    height: 120px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #fff;
+    position: relative;
+    margin: 5px;
+}
+
+    .card.face-up {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card.back {
+        background-color: lightsalmon;
+        background-image: url("");
+    }
+
+    .card .rank {
+        font-size: 24px;
+        font-weight: bold;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
+
+    .card .rank.red {
+        color: red;
+    }
+
+    .card .rank.black {
+            color: black;
+    }
+    .card .suit {
+        font-size: 24px;
+        font-weight: bold;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+
+    .card .suit.red {
+        color: red;
+    }
+
+    .card .suit.black {
+        color: black;
+    }
+
+
