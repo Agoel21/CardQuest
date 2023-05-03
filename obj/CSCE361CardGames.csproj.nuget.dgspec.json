@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj": {}
+    "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj": {}
   },
   "projects": {
-    "/Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj": {
+    "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj",
+        "projectUniqueName": "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj",
         "projectName": "CSCE361CardGames",
-        "projectPath": "/Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj",
-        "packagesPath": "/Users/akshitagoel/.nuget/packages/",
-        "outputPath": "/Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/obj/",
+        "projectPath": "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj",
+        "packagesPath": "C:\\Users\\Landon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/akshitagoel/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Landon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

@@ -10053,11 +10053,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Landon\\source\\repos\\CapstoneProj\\CSCE361CardGames.csproj",
+      "projectUniqueName": "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj",
       "projectName": "CSCE361CardGames",
-      "projectPath": "C:\\Users\\Landon\\source\\repos\\CapstoneProj\\CSCE361CardGames.csproj",
+      "projectPath": "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj",
       "packagesPath": "C:\\Users\\Landon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Landon\\source\\repos\\CapstoneProj\\obj\\",
+      "outputPath": "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Landon\\AppData\\Roaming\\NuGet\\NuGet.Config",
