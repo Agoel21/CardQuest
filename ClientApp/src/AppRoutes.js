@@ -1,5 +1,4 @@
 import { Crazy8s } from "./components/Crazy8s";
-import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 
 const AppRoutes = [
