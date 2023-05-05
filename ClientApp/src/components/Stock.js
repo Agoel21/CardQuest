@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "./ClientApp/src/components/Card";
+import Card from "./Card";
 
 const Stock = ({ cards, onDraw }) => {
     return (
         <div className="stock" onClick={onDraw}>
             {cards.length > 0 ? (
-                <Card suit="back" rank="back" />
+                <Card suit="Back of Card" rank="Back of Card" />
             ) : (
                     <div className="stock-empty">Stock is empty</div>
                 )}

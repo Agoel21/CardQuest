@@ -23,7 +23,7 @@ export class Home extends Component {
                   //Drag me
                   */
               />
-              <Draggable type="foo" data="bar">
+              {/* <Draggable type="foo" data="bar">
                   <div>
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/200px-Playing_card_heart_A.svg.png?20070326034343" alt="Test Image" />
                   </div>
@@ -33,7 +33,7 @@ export class Home extends Component {
                   <div>
                       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/200px-Playing_card_heart_A.svg.png?20070326034343" alt="Test Image" />
                   </div>
-              </Droppable>
+              </Droppable> */}
       </div>
     );
   }
