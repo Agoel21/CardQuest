@@ -9,6 +9,7 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CSCE361CardGames
 build_property.RootNamespace = CSCE361CardGames
+<<<<<<< HEAD
 build_property.ProjectDir = /Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
@@ -22,4 +23,19 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+=======
+build_property.ProjectDir = C:\Users\Landon\source\repos\CapstoneProject\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Landon\source\repos\CapstoneProject
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Landon/source/repos/CapstoneProject/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Landon/source/repos/CapstoneProject/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+>>>>>>> 86c84817dbe40930443ff842918bc08d407cbf69
 build_metadata.AdditionalFiles.CssScope = 

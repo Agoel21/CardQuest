@@ -11,7 +11,8 @@ const AppRoutes = [
   {
     path: '/crazy-8s',
     element: <Crazy8s />
-  },
+    },
+  /*
   {
     path: '/solitaire',
     element: <Solitaire />

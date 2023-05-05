@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "RzwD+gPWoB+rGj8hTk7p6UUTN+BrPYkAcRx9/Ye7EOppgf+59sjmPs9w39qnHOqNIbtRtCl2Cas4+4uV6Q0Keg==",
   "success": true,
   "projectFilePath": "/Users/akshitagoel/gitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj",
+=======
+  "dgSpecHash": "aYHxwQQkK9pb9mMghg0QSYXPYNWzApUOdhBuJcF983pYkaY8/TefzYRiLjVn/9rAhU43dd1/hU3UlRyNderUMg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj",
+>>>>>>> 86c84817dbe40930443ff842918bc08d407cbf69
   "expectedPackageFiles": [
     "/Users/akshitagoel/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/akshitagoel/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",

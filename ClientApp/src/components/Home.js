@@ -13,7 +13,7 @@ export class Home extends Component {
         <h1>Solitaire</h1>
             <p>Welcome to solitaire!</p>
             <p></p>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/200px-Playing_card_heart_A.svg.png?20070326034343"
+              <img src={require('../assets/ace_of_hearts.png')}
                   alt="Test Image"
                   /*
                   draggable
@@ -25,13 +25,13 @@ export class Home extends Component {
               />
               {/* <Draggable type="foo" data="bar">
                   <div>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/200px-Playing_card_heart_A.svg.png?20070326034343" alt="Test Image" />
+                      <img src={require('../assets/ace_of_clubs.png')} alt="Test Image" />
                   </div>
               </Draggable>
 
               <Droppable types={['foo']} onDrop={this.handleDrop}>
                   <div>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Playing_card_heart_A.svg/200px-Playing_card_heart_A.svg.png?20070326034343" alt="Test Image" />
+                      <img src={require('../assets/king_of_spades.png')} alt="Test Image" />
                   </div>
               </Droppable> */}
       </div>

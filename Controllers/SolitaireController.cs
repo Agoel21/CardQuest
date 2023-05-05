@@ -126,13 +126,18 @@ namespace CSCE361CardGames.Controllers
             /*
             * Adds a Card named newCard to the
             * existing foundation if newCard's
-            * suit is equal to suit.
+            * suit is equal to suit and newCard's
+            * rank is one higher than the top
+            * card of the foundation.
             */
             public void suitStack(Card newCard)
             {
                 if (newCard.Suit == suit)
                 {
-                    suitFoundation.AddCard(newCard);
+                    if (newCard.Rank.Equals(suitFoundation.availableCards[0].Rank + 1))
+                    {
+                        suitFoundation.AddCard(newCard);
+                    }
                 }
             }
         }
