@@ -10,12 +10,7 @@ const AppRoutes = [
     path: '/counter',
     element: <Crazy8s />
     },
-  /*
-  {
-    path: '/fetch-data',
-    element: <FetchData />
-  }
-  */
+
 ];
 
 export default AppRoutes;
