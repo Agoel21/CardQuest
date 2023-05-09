@@ -1,0 +1,16 @@
+.home {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(6, 201, 94);
+    border: 30px solid rgb(9, 143, 67);
+  }
+  
+  .home h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    color: rgb(1, 69, 10);
+    text-align: center;
+    text-shadow: 2px 2px #f8fff8;
+  }

@@ -1,7 +1,6 @@
-import { Crazy8s } from "./components/Crazy8s/Crazy8s";
+import Crazy8s  from "./components/Crazy8s/Crazy8s";
 import Solitaire from "./components/Solitaire/Solitaire";
-import { Home } from "./components/Home";
-import Board from "./components/Board";
+import { Home } from "./components/Home/Home";
 
 const AppRoutes = [
   {
