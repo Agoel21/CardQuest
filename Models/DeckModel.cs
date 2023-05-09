@@ -47,7 +47,7 @@ namespace CSCE361CardGames.Models
             Card[] getDeckOfCards { get; }
             */
         }
-
+        
         public class Deck : IDeck
         {
 

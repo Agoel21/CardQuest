@@ -132,12 +132,22 @@ namespace CSCE361CardGames.Controllers
             */
             public void suitStack(Card newCard)
             {
-                if (newCard.Suit == suit)
+                if (newCard.Suit.Equals(suit))
                 {
-                    if (newCard.Rank.Equals(suitFoundation.availableCards[0].Rank + 1))
+                    if (suitFoundation.availableCards.Count <= 0 || newCard.Rank == suitFoundation.availableCards[suitFoundation.availableCards.Count - 1].Rank + 1)
                     {
                         suitFoundation.AddCard(newCard);
                     }
+                    /*
+                    if (newCard.Rank.Equals(suitFoundation.availableCards[suitFoundation.availableCards.Count-1].Rank + 1))
+                    {
+                        suitFoundation.AddCard(newCard);
+                    }
+                    else if (suitFoundation.availableCards.Count == 0)
+                    {
+                        suitFoundation.AddCard(newCard);
+                    }
+                    */
                 }
             }
         }
