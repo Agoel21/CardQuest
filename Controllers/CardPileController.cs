@@ -5,7 +5,7 @@ using static CSCE361CardGames.Models.DeckModel;
 
 namespace CSCE361CardGames.Controllers
 {
-    public class SetupController
+    public class CardPileController
     {
         /*
          * Interface for modifying a pile of cards.

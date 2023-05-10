@@ -1,6 +1,6 @@
 ﻿using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
-using static CSCE361CardGames.Controllers.SetupController;
+using static CSCE361CardGames.Controllers.CardPileController;
 
 namespace CSCE361CardGames.Controllers
 {

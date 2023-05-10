@@ -3,7 +3,7 @@
  * for Crazy 8s, including the Crazy 8s board.
  */
 
-using static CSCE361CardGames.Controllers.SetupController;
+using static CSCE361CardGames.Controllers.CardPileController;
 using static CSCE361CardGames.Controllers.PlayerController;
 using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
