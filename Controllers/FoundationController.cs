@@ -10,13 +10,13 @@ namespace CSCE361CardGames.Controllers
         */
         interface IFoundation
         {
-            //TODO: enforce numeric stacking rules here, only allow cards of the assigned suit to be added
             /*
             * Takes a Card as a paremeter and adds
             * the Card to a foundation of the 
-            * same suit.
+            * same suit. Returns 1 if addition was
+            * possible, 0 if not.
             */
-            void suitStack(Card card);
+            int suitStack(Card card);
         }
 
         /*
@@ -43,27 +43,31 @@ namespace CSCE361CardGames.Controllers
             * existing foundation if newCard's
             * suit is equal to suit and newCard's
             * rank is one higher than the top
-            * card of the foundation.
+            * card of the foundation. Returns 1 if
+            * card was added and 0 otherwise.
             */
-            public void suitStack(Card newCard)
+            public int suitStack(Card newCard)
             {
-                if (newCard.Suit.Equals(suit))
+                if (newCard.Suit != suit)
                 {
-                    if (suitFoundation.availableCards.Count <= 0 || newCard.Rank == suitFoundation.availableCards[suitFoundation.availableCards.Count - 1].Rank + 1)
-                    {
-                        suitFoundation.AddCard(newCard);
-                    }
-                    /*
-                    if (newCard.Rank.Equals(suitFoundation.availableCards[suitFoundation.availableCards.Count-1].Rank + 1))
-                    {
-                        suitFoundation.AddCard(newCard);
-                    }
-                    else if (suitFoundation.availableCards.Count == 0)
-                    {
-                        suitFoundation.AddCard(newCard);
-                    }
-                    */
+                    return 0;
                 }
+
+                switch (suitFoundation.availableCards.Any())
+                {
+                    case false when newCard.Rank == Card.Ranks.Ace:
+                        suitFoundation.AddCard(newCard);
+                        return 1;
+                    case false when newCard.Rank != Card.Ranks.Ace:
+                        return 0;
+                }
+
+                if (newCard.Rank.Equals(suitFoundation.availableCards.Last().Rank + 1))
+                {
+                    suitFoundation.AddCard(newCard);
+                    return 1;
+                }
+                return 0;
             }
         }
     }

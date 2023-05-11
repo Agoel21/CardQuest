@@ -16,18 +16,20 @@ namespace CSCE361CardGames.Controllers
             * and adds cards to a new column.
             */
             public void BuildColumn(Deck deck, int amountForReserve);
+
             //TODO: enforce alternating color/descending numbers here
             /*
-            * Returns the top card from the active
-            * stack of the column.
+            * Removes the chosen card and any cards above
+            * from the active stack of the column.
             */
-            public Card RemoveFromColumn();
+            public void RemoveFromColumn(Card card);
+
             /*
-            * Takes a card as a parameter and
+            * Takes a card(s) as a parameter and
             * adds the card to the active stack
             * of the column.
             */
-            public void AddToColumn(Card card);
+            public int AddToColumn(List<Card> cards);
         }
 
         /*
@@ -52,35 +54,57 @@ namespace CSCE361CardGames.Controllers
             }
 
             /*
-            * Removes the top card from the active pile
-            * and returns it.
+            * Removes the chosen card and any cards above it from active pile.
             */
-            public Card RemoveFromColumn()
+            public void RemoveFromColumn(Card card)
             {
-                Card currentTopCard = active.availableCards.Last();
-                int index = active.availableCards.IndexOf(currentTopCard);
-                active.RemoveCardAt(index);
+                int index = active.availableCards.FindIndex(c => c == card);
+
+                active.availableCards.RemoveRange(index, active.availableCards.Count - index);
                 if (active.availableCards.Count == 0 && reserve.availableCards.Count != 0)
                 {
-                    //logic for if need to flip reserve card or pile is empty
+                    Card topReserveCard = reserve.availableCards.Last();
+                    reserve.RemoveCardAt(reserve.availableCards.Count - 1);
+                    active.AddCard(topReserveCard);
                 }
-                return currentTopCard;
             }
 
             /*
-            * Adds a given card to the active pile
+            * Adds a given card(s) to the active pile
             * if the color doesn't match and the 
             * given card is one rank lower than the 
             * current card on top of the active pile.
+            * If column is empty only king may be placed.
             */
-            public void AddToColumn(Card card)
+            public int AddToColumn(List<Card> cards)
             {
+                switch (active.availableCards.Count)
+                {
+                    case 0 when cards[0].Rank == Card.Ranks.King:
+                    {
+                        foreach (var card in cards)
+                        {
+                            active.AddCard(card);
+                        }
+                        return 1;
+                    }
+                    case 0 when cards[0].Rank != Card.Ranks.King:
+                        return 0;
+                }
+
                 Card currentTopCard = active.availableCards.Last();
-                if (card.Color != currentTopCard.Color
-                    && card.Rank == (currentTopCard.Rank - 1))
+
+                if (cards[0].Color == currentTopCard.Color
+                    || cards[0].Rank != (currentTopCard.Rank - 1))
+                {
+                    return 0;
+                }
+
+                foreach (var card in cards)
                 {
                     active.AddCard(card);
                 }
+                return 1;
             }
         }
     }
