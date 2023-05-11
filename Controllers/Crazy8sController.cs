@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This controller defines the classes/interfaces
  * for Crazy 8s, including the Crazy 8s board.
  */
@@ -116,7 +116,7 @@ namespace CSCE361CardGames.Controllers
 
                 Stockpile.SetCards(deck.deckOfCards);
                 ActiveCard = Stockpile.TakeCardAt(0);
-                while (ActiveCard.Rank.Equals(8))
+                while (ActiveCard.Rank.Equals(Card.Ranks.Eight))
                 {
                     SwapActiveCardTo(Stockpile.TakeCardAt(0));
 
@@ -149,8 +149,8 @@ namespace CSCE361CardGames.Controllers
             public void PlayCard(Card card)
             {
                 if (ActiveCard != null &&
-                    (!card.Rank.Equals((Card.Ranks)8)) &&
-                    (card.Rank.Equals(ActiveCard.Rank) || card.Suit.Equals(ActiveSuit)))
+                    (!card.Rank.Equals(Card.Ranks.Eight) &&
+                    (card.Rank.Equals(ActiveCard.Rank) || card.Suit.Equals(ActiveSuit))))
                 {
                     CurrentPlayer?.Value.Hand.RemoveCard(card);
                     SwapActiveCardTo(card);
@@ -159,21 +159,24 @@ namespace CSCE361CardGames.Controllers
                     {
                         PassTurn();
                     }
-                } else if (card.Rank.Equals((Card.Ranks)8))
+                }
+                else if (card.Rank.Equals(Card.Ranks.Eight))
                 {
                     CurrentPlayer?.Value.Hand.RemoveCard(card);
                     SwapActiveCardTo(card);
-                    ActiveSuit = ChooseWildcard();
-                    if (CurrentPlayer != null && CurrentPlayer.Value.Hand.availableCards.Count > 0)
-                    {
-                        PassTurn();
-                    }
+                    //ActiveSuit = ChooseWildcard();
+                    //if (CurrentPlayer != null && CurrentPlayer.Value.Hand.availableCards.Count > 0)
+                    //{
+                    //    PassTurn();
+                    //}
                 }
             }
 
             /*
              * Once the front end is implemented, this method MUST BE RELOCATED TO THE VIEW,
              * as it will take player input directly.
+             * 
+             * This is also UNTESTED as of right now, since we don't have the wildcard logic in yet.
              */
             public Card.Suits ChooseWildcard()
             {
@@ -183,7 +186,8 @@ namespace CSCE361CardGames.Controllers
                     Console.WriteLine("Choose a wildcard suit: \n 1) Clubs \n 2) Diamonds \n 3) Hearts \n 4) Spades");
                     choice = (char)Console.ReadKey().Key;
                 }
-                return (Card.Suits)(choice-48);
+                PassTurn();
+                return (Card.Suits)(choice - 48);
             }
 
             public void SwapActiveCardTo(Card card)
@@ -201,7 +205,7 @@ namespace CSCE361CardGames.Controllers
 
             public void PassTurn()
             {
-                //todo: figure out how to cite properly https://stackoverflow.com/a/7332084
+                //Artificially circular linked list methodology adapted from https://stackoverflow.com/a/7332084
                 CurrentPlayer = CurrentPlayer?.Next ?? CurrentPlayer?.List?.First;
 
             }
