@@ -10048,19 +10048,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\natha\\.nuget\\packages\\": {}
+    "C:\\Users\\Landon\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\natha\\Documents\\GitHub\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
+      "projectUniqueName": "C:\\Users\\Landon\\source\\repos\\CardGameProject\\CSCE361CardGames.csproj",
       "projectName": "CSCE361CardGames",
-      "projectPath": "C:\\Users\\natha\\Documents\\GitHub\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
-      "packagesPath": "C:\\Users\\natha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\natha\\Documents\\GitHub\\CSCE361-Capstone-Project-Group9\\obj\\",
+      "projectPath": "C:\\Users\\Landon\\source\\repos\\CardGameProject\\CSCE361CardGames.csproj",
+      "packagesPath": "C:\\Users\\Landon\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Landon\\source\\repos\\CardGameProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\natha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Landon\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
