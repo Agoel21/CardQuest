@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kate\\Source\\Repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj": {}
+    "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kate\\Source\\Repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj": {
+    "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kate\\Source\\Repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
+        "projectUniqueName": "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
         "projectName": "CSCE361CardGames",
-        "projectPath": "C:\\Users\\Kate\\Source\\Repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
+        "projectPath": "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
         "packagesPath": "C:\\Users\\Kate\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Kate\\Source\\Repos\\CSCE361-Capstone-Project-Group9\\obj\\",
         "projectStyle": "PackageReference",
