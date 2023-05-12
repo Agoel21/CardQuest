@@ -114,7 +114,7 @@ namespace CSCE361CardGames.Controllers
 
                 DistributeCards(deck);
 
-                Stockpile.SetCards(deck.deckOfCards);
+                Stockpile.SetCards(deck.DeckOfCards);
                 ActiveCard = Stockpile.TakeCardAt(0);
                 while (ActiveCard.Rank.Equals(Card.Ranks.Eight))
                 {
@@ -129,7 +129,7 @@ namespace CSCE361CardGames.Controllers
 
             public void DrawFromStockPile()
             {
-                if (Stockpile.availableCards.Count > 0)
+                if (Stockpile.AvailableCards.Count > 0)
                 {
                     CurrentPlayer?.Value.Hand.AddCard(Stockpile.TakeCardAt(0));
                 }
@@ -137,11 +137,11 @@ namespace CSCE361CardGames.Controllers
                 {
                     Console.WriteLine("Stockpile empty! Shuffling cards."); //debug statement
                     Activedeck.ShuffleDeck();
-                    foreach (Card c in Activedeck.deckOfCards)
+                    foreach (Card c in Activedeck.DeckOfCards)
                     {
                         Stockpile.AddCard(c);
                     }
-                    Activedeck.deckOfCards.Clear();
+                    Activedeck.DeckOfCards.Clear();
                     PassTurn();
                 }
 
@@ -155,7 +155,7 @@ namespace CSCE361CardGames.Controllers
                     CurrentPlayer?.Value.Hand.RemoveCard(card);
                     SwapActiveCardTo(card);
                     ActiveSuit = ActiveCard.Suit;
-                    if (CurrentPlayer != null && CurrentPlayer.Value.Hand.availableCards.Count > 0)
+                    if (CurrentPlayer != null && CurrentPlayer.Value.Hand.AvailableCards.Count > 0)
                     {
                         PassTurn();
                     }

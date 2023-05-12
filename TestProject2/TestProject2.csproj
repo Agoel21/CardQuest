@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CSCE361-Capstone-Project-Group9\CSCE361CardGames.csproj" />
+    <ProjectReference Include="..\CSCE361CardGames.csproj" />
   </ItemGroup>
 
 </Project>

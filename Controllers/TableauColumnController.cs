@@ -40,8 +40,8 @@ namespace CSCE361CardGames.Controllers
          */
         public class TableauColumn : ITableauColumn
         {
-            public CardPile reserve = new();
-            public CardPile active = new();
+            public CardPile Reserve = new();
+            public CardPile Active = new();
 
             /*
             * Builds a column by adding cards to the 
@@ -49,8 +49,8 @@ namespace CSCE361CardGames.Controllers
             */
             public void BuildColumn(Deck deck, int amountForReserve)
             {
-                reserve.GrabCards(deck, amountForReserve);
-                active.GrabCards(deck, 1);
+                Reserve.GrabCards(deck, amountForReserve);
+                Active.GrabCards(deck, 1);
             }
 
             /*
@@ -58,14 +58,14 @@ namespace CSCE361CardGames.Controllers
             */
             public void RemoveFromColumn(Card card)
             {
-                int index = active.availableCards.FindIndex(c => c == card);
+                int index = Active.AvailableCards.FindIndex(c => c == card);
 
-                active.availableCards.RemoveRange(index, active.availableCards.Count - index);
-                if (active.availableCards.Count == 0 && reserve.availableCards.Count != 0)
+                Active.AvailableCards.RemoveRange(index, Active.AvailableCards.Count - index);
+                if (Active.AvailableCards.Count == 0 && Reserve.AvailableCards.Count != 0)
                 {
-                    Card topReserveCard = reserve.availableCards.Last();
-                    reserve.RemoveCardAt(reserve.availableCards.Count - 1);
-                    active.AddCard(topReserveCard);
+                    Card topReserveCard = Reserve.AvailableCards.Last();
+                    Reserve.RemoveCardAt(Reserve.AvailableCards.Count - 1);
+                    Active.AddCard(topReserveCard);
                 }
             }
 
@@ -78,13 +78,13 @@ namespace CSCE361CardGames.Controllers
             */
             public int AddToColumn(List<Card> cards)
             {
-                switch (active.availableCards.Count)
+                switch (Active.AvailableCards.Count)
                 {
                     case 0 when cards[0].Rank == Card.Ranks.King:
                     {
                         foreach (var card in cards)
                         {
-                            active.AddCard(card);
+                            Active.AddCard(card);
                         }
                         return 1;
                     }
@@ -92,7 +92,7 @@ namespace CSCE361CardGames.Controllers
                         return 0;
                 }
 
-                Card currentTopCard = active.availableCards.Last();
+                Card currentTopCard = Active.AvailableCards.Last();
 
                 if (cards[0].Color == currentTopCard.Color
                     || cards[0].Rank != (currentTopCard.Rank - 1))
@@ -102,7 +102,7 @@ namespace CSCE361CardGames.Controllers
 
                 foreach (var card in cards)
                 {
-                    active.AddCard(card);
+                    Active.AddCard(card);
                 }
                 return 1;
             }

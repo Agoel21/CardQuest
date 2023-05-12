@@ -47,8 +47,8 @@ namespace CSCE361CardGames.Controllers
         */
         public class SolitaireBoard : ISolitaireBoard
         {
-            public List<Foundation> boardFoundations = new List<Foundation>();
-            public List<TableauColumn> boardColumns = new List<TableauColumn>();
+            public List<Foundation> BoardFoundations = new List<Foundation>();
+            public List<TableauColumn> BoardColumns = new List<TableauColumn>();
 
             public Foundation ClubsFoundation = new Foundation(Card.Suits.Clubs);
             public Foundation DiamondsFoundation = new Foundation(Card.Suits.Diamonds);
@@ -67,7 +67,7 @@ namespace CSCE361CardGames.Controllers
             public TableauColumn ColumnSix = new TableauColumn();
             public TableauColumn ColumnSeven = new TableauColumn();
 
-            public CardPile stockpile = new();
+            public CardPile Stockpile = new();
 
             public TableauColumn WasteColumn = new TableauColumn();
 
@@ -91,45 +91,45 @@ namespace CSCE361CardGames.Controllers
                 ColumnSix.BuildColumn(deck, 5);
                 ColumnSeven.BuildColumn(deck, 6);
 
-                stockpile.SetCards(deck.deckOfCards);
+                Stockpile.SetCards(deck.DeckOfCards);
 
 
-                boardFoundations.Add(ClubsFoundation);
-                boardFoundations.Add(DiamondsFoundation);
-                boardFoundations.Add(HeartsFoundation);
-                boardFoundations.Add(SpadesFoundation);
+                BoardFoundations.Add(ClubsFoundation);
+                BoardFoundations.Add(DiamondsFoundation);
+                BoardFoundations.Add(HeartsFoundation);
+                BoardFoundations.Add(SpadesFoundation);
 
-                boardColumns.Add(ColumnOne);
-                boardColumns.Add(ColumnTwo);
-                boardColumns.Add(ColumnThree);
-                boardColumns.Add(ColumnFour);
-                boardColumns.Add(ColumnFive);
-                boardColumns.Add(ColumnSix);
-                boardColumns.Add(ColumnSeven);
+                BoardColumns.Add(ColumnOne);
+                BoardColumns.Add(ColumnTwo);
+                BoardColumns.Add(ColumnThree);
+                BoardColumns.Add(ColumnFour);
+                BoardColumns.Add(ColumnFive);
+                BoardColumns.Add(ColumnSix);
+                BoardColumns.Add(ColumnSeven);
             }
 
             public void CheckBoard(TableauColumn currentColumn, Card chosenCard)
             {
-                int index = currentColumn.active.availableCards.FindIndex(c => c == chosenCard);
+                int index = currentColumn.Active.AvailableCards.FindIndex(c => c == chosenCard);
                 int spotFoundFlag = 0;
 
-                if (currentColumn.active.availableCards.Count - index == 1)
+                if (currentColumn.Active.AvailableCards.Count - index == 1)
                 {
-                    foreach (var foundation in boardFoundations)
+                    foreach (var foundation in BoardFoundations)
                     {
-                        spotFoundFlag = foundation.suitStack(chosenCard);
+                        spotFoundFlag = foundation.SuitStack(chosenCard);
                         if (spotFoundFlag != 1) continue;
                         currentColumn.RemoveFromColumn(chosenCard);
                         return;
                     }
                 }
 
-                foreach (var column in boardColumns)
+                foreach (var column in BoardColumns)
                 {
                     if (column.Equals(currentColumn)) continue;
                     spotFoundFlag +=
-                        column.AddToColumn(currentColumn.active.availableCards.GetRange(index,
-                            currentColumn.active.availableCards.Count - index));
+                        column.AddToColumn(currentColumn.Active.AvailableCards.GetRange(index,
+                            currentColumn.Active.AvailableCards.Count - index));
                     if (spotFoundFlag != 1) continue;
                     currentColumn.RemoveFromColumn(chosenCard);
                     return;
@@ -138,40 +138,40 @@ namespace CSCE361CardGames.Controllers
 
             public void FlipFromStockpile()
             {
-                if (WasteColumn.active.availableCards.Count > 0)
+                if (WasteColumn.Active.AvailableCards.Count > 0)
                 {
-                    WasteColumn.reserve.AddCard(WasteColumn.active.availableCards[0]);
-                    WasteColumn.active.RemoveCardAt(0);
+                    WasteColumn.Reserve.AddCard(WasteColumn.Active.AvailableCards[0]);
+                    WasteColumn.Active.RemoveCardAt(0);
                 }
 
-                if (stockpile.availableCards.Count == 0)
+                if (Stockpile.AvailableCards.Count == 0)
                 {
                     Random random = new Random();
-                    for (int j = WasteColumn.reserve.availableCards.Count - 1; j > 0; j--)
+                    for (int j = WasteColumn.Reserve.AvailableCards.Count - 1; j > 0; j--)
                     {
-                        var i = random.Next(WasteColumn.reserve.availableCards.Count);
-                        (WasteColumn.reserve.availableCards[i], WasteColumn.reserve.availableCards[j])
-                            = (WasteColumn.reserve.availableCards[j], WasteColumn.reserve.availableCards[i]);
+                        var i = random.Next(WasteColumn.Reserve.AvailableCards.Count);
+                        (WasteColumn.Reserve.AvailableCards[i], WasteColumn.Reserve.AvailableCards[j])
+                            = (WasteColumn.Reserve.AvailableCards[j], WasteColumn.Reserve.AvailableCards[i]);
                     }
 
-                    stockpile.availableCards.AddRange(WasteColumn.reserve.availableCards);
-                    WasteColumn.reserve.availableCards.RemoveRange(0, WasteColumn.reserve.availableCards.Count);
+                    Stockpile.AvailableCards.AddRange(WasteColumn.Reserve.AvailableCards);
+                    WasteColumn.Reserve.AvailableCards.RemoveRange(0, WasteColumn.Reserve.AvailableCards.Count);
                 }
 
-                WasteColumn.active.AddCard(stockpile.availableCards.Last());
-                stockpile.RemoveCardAt(stockpile.availableCards.Count - 1);
+                WasteColumn.Active.AddCard(Stockpile.AvailableCards.Last());
+                Stockpile.RemoveCardAt(Stockpile.AvailableCards.Count - 1);
             }
 
             public void MoveFromFoundation(Foundation foundation)
             {
                 int spotFoundFlag = 0;
                 List<Card> movingCard = new List<Card>();
-                movingCard.Add(foundation.suitFoundation.availableCards.Last());
-                foreach (var column in boardColumns)
+                movingCard.Add(foundation.SuitFoundation.AvailableCards.Last());
+                foreach (var column in BoardColumns)
                 {
                     spotFoundFlag += column.AddToColumn(movingCard);
                     if (spotFoundFlag != 1) continue;
-                    foundation.suitFoundation.RemoveCardAt(foundation.suitFoundation.availableCards.Count - 1);
+                    foundation.SuitFoundation.RemoveCardAt(foundation.SuitFoundation.AvailableCards.Count - 1);
                     return;
                 }
             }

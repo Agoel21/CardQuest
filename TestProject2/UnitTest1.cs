@@ -31,7 +31,7 @@ namespace CardGamesTests
         {
             Deck deck = new Deck();
             deck.FillDeck();
-            Assert.AreEqual(52, deck.deckOfCards.Count());
+            Assert.AreEqual(52, deck.DeckOfCards.Count());
         }
 
         [TestMethod]
@@ -64,8 +64,8 @@ namespace CardGamesTests
             Deck deck = new Deck();
             deck.FillDeck();
             CardPile pile = new CardPile();
-            pile.SetCards(deck.deckOfCards);
-            Assert.AreEqual(deck.deckOfCards, pile.availableCards);
+            pile.SetCards(deck.DeckOfCards);
+            Assert.AreEqual(deck.DeckOfCards, pile.AvailableCards);
         }
 
         /*
@@ -78,8 +78,8 @@ namespace CardGamesTests
             deck.FillDeck();
             TableauColumn col = new TableauColumn();
             col.BuildColumn(deck, 5);
-            Assert.AreEqual(col.active.availableCards.Count, 1);
-            Assert.AreEqual(col.reserve.availableCards.Count, 5);
+            Assert.AreEqual(col.Active.AvailableCards.Count, 1);
+            Assert.AreEqual(col.Reserve.AvailableCards.Count, 5);
         }
 
         [TestMethod]
@@ -87,7 +87,7 @@ namespace CardGamesTests
         {
             SolitaireBoard board = new SolitaireBoard();
             Card card = new Card(Card.Suits.Diamonds, Card.Ranks.Ace);
-            Assert.AreEqual(board.DiamondsFoundation.suit, Card.Suits.Diamonds);
+            Assert.AreEqual(board.DiamondsFoundation.Suit, Card.Suits.Diamonds);
         }
 
         [TestMethod]
@@ -96,10 +96,10 @@ namespace CardGamesTests
             SolitaireBoard board = new SolitaireBoard();
             Card first = new Card(Card.Suits.Diamonds, Card.Ranks.Ace);
             Card second = new Card(Card.Suits.Diamonds, Card.Ranks.Two);
-            board.DiamondsFoundation.suitStack(first);
-            board.DiamondsFoundation.suitStack(second);
-            Assert.AreEqual(board.DiamondsFoundation.suitFoundation.availableCards[0], first);
-            Assert.AreEqual(board.DiamondsFoundation.suitFoundation.availableCards[1], second);
+            board.DiamondsFoundation.SuitStack(first);
+            board.DiamondsFoundation.SuitStack(second);
+            Assert.AreEqual(board.DiamondsFoundation.SuitFoundation.AvailableCards[0], first);
+            Assert.AreEqual(board.DiamondsFoundation.SuitFoundation.AvailableCards[1], second);
         }
 
         [TestMethod]
@@ -108,9 +108,9 @@ namespace CardGamesTests
             SolitaireBoard board = new SolitaireBoard();
             Card first = new Card(Card.Suits.Diamonds, Card.Ranks.Ace);
             Card second = new Card(Card.Suits.Spades, Card.Ranks.Two);
-            board.DiamondsFoundation.suitStack(first);
-            board.DiamondsFoundation.suitStack(second);
-            Assert.AreEqual(board.DiamondsFoundation.suitFoundation.availableCards.Count, 1);
+            board.DiamondsFoundation.SuitStack(first);
+            board.DiamondsFoundation.SuitStack(second);
+            Assert.AreEqual(board.DiamondsFoundation.SuitFoundation.AvailableCards.Count, 1);
         }
 
         [TestMethod]
@@ -119,9 +119,9 @@ namespace CardGamesTests
             SolitaireBoard board = new SolitaireBoard();
             Card first = new Card(Card.Suits.Diamonds, Card.Ranks.Ace);
             Card second = new Card(Card.Suits.Diamonds, Card.Ranks.Three);
-            board.DiamondsFoundation.suitStack(first);
-            board.DiamondsFoundation.suitStack(second);
-            Assert.AreEqual(board.DiamondsFoundation.suitFoundation.availableCards.Count, 1);
+            board.DiamondsFoundation.SuitStack(first);
+            board.DiamondsFoundation.SuitStack(second);
+            Assert.AreEqual(board.DiamondsFoundation.SuitFoundation.AvailableCards.Count, 1);
         }
 
         /*
@@ -140,11 +140,11 @@ namespace CardGamesTests
             Deck deck = new Deck();
             deck.FillDeck();
             CardPile hand = new CardPile();
-            hand.SetCards(deck.deckOfCards);
+            hand.SetCards(deck.DeckOfCards);
 
             Player p = new Player("test_name");
-            p.Hand.SetCards(hand.availableCards);
-            Assert.AreEqual(p.Hand.availableCards, hand.availableCards);
+            p.Hand.SetCards(hand.AvailableCards);
+            Assert.AreEqual(p.Hand.AvailableCards, hand.AvailableCards);
         }
 
         /*
@@ -190,7 +190,7 @@ namespace CardGamesTests
             board.DistributeCards(deck);
             foreach (Player player in board.Players)
             {
-                Assert.AreEqual(player.Hand.availableCards.Count, 5);
+                Assert.AreEqual(player.Hand.AvailableCards.Count, 5);
             }
         }
 
@@ -280,14 +280,14 @@ namespace CardGamesTests
             board.AddPlayer(player);
             board.GenerateBoard();
 
-            int initialAmountInHand = player.Hand.availableCards.Count;
-            int initialAmountInStock = board.Stockpile.availableCards.Count;
+            int initialAmountInHand = player.Hand.AvailableCards.Count;
+            int initialAmountInStock = board.Stockpile.AvailableCards.Count;
 
             board.DrawFromStockPile();
 
 
-            Assert.AreNotEqual(player.Hand.availableCards.Count, initialAmountInHand);
-            Assert.AreNotEqual(board.Stockpile.availableCards.Count, initialAmountInStock);
+            Assert.AreNotEqual(player.Hand.AvailableCards.Count, initialAmountInHand);
+            Assert.AreNotEqual(board.Stockpile.AvailableCards.Count, initialAmountInStock);
         }
 
         [TestMethod]
@@ -298,18 +298,18 @@ namespace CardGamesTests
             board.AddPlayer(player);
             board.GenerateBoard();
 
-            int initialAmountInHand = player.Hand.availableCards.Count;
+            int initialAmountInHand = player.Hand.AvailableCards.Count;
 
             board.Stockpile.SetCards(new());
 
             Deck deck = new();
             deck.FillDeck();
-            board.Activedeck.deckOfCards = deck.deckOfCards;
+            board.Activedeck.DeckOfCards = deck.DeckOfCards;
 
             board.DrawFromStockPile();
 
-            Assert.AreEqual(player.Hand.availableCards.Count, initialAmountInHand);
-            Assert.AreEqual(board.Stockpile.availableCards.Count, 52);
+            Assert.AreEqual(player.Hand.AvailableCards.Count, initialAmountInHand);
+            Assert.AreEqual(board.Stockpile.AvailableCards.Count, 52);
         }
 
         [TestMethod]

@@ -16,7 +16,7 @@ namespace CSCE361CardGames.Controllers
             * same suit. Returns 1 if addition was
             * possible, 0 if not.
             */
-            int suitStack(Card card);
+            int SuitStack(Card card);
         }
 
         /*
@@ -26,8 +26,8 @@ namespace CSCE361CardGames.Controllers
         */
         public class Foundation : IFoundation
         {
-            public Card.Suits suit;
-            public CardPile suitFoundation = new();
+            public Card.Suits Suit;
+            public CardPile SuitFoundation = new();
 
             /*
             * A constructor for creating a foundation. 
@@ -35,7 +35,7 @@ namespace CSCE361CardGames.Controllers
             */
             public Foundation(Card.Suits suit)
             {
-                this.suit = suit;
+                this.Suit = suit;
             }
 
             /*
@@ -46,25 +46,25 @@ namespace CSCE361CardGames.Controllers
             * card of the foundation. Returns 1 if
             * card was added and 0 otherwise.
             */
-            public int suitStack(Card newCard)
+            public int SuitStack(Card newCard)
             {
-                if (newCard.Suit != suit)
+                if (newCard.Suit != Suit)
                 {
                     return 0;
                 }
 
-                switch (suitFoundation.availableCards.Any())
+                switch (SuitFoundation.AvailableCards.Any())
                 {
                     case false when newCard.Rank == Card.Ranks.Ace:
-                        suitFoundation.AddCard(newCard);
+                        SuitFoundation.AddCard(newCard);
                         return 1;
                     case false when newCard.Rank != Card.Ranks.Ace:
                         return 0;
                 }
 
-                if (newCard.Rank.Equals(suitFoundation.availableCards.Last().Rank + 1))
+                if (newCard.Rank.Equals(SuitFoundation.AvailableCards.Last().Rank + 1))
                 {
-                    suitFoundation.AddCard(newCard);
+                    SuitFoundation.AddCard(newCard);
                     return 1;
                 }
                 return 0;

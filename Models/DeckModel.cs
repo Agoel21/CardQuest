@@ -51,11 +51,11 @@ namespace CSCE361CardGames.Models
         public class Deck : IDeck
         {
 
-            public List<Card> deckOfCards;
+            public List<Card> DeckOfCards;
 
             public Deck()
             {
-                deckOfCards = new List<Card>();
+                DeckOfCards = new List<Card>();
             }
 
             public void FillDeck()
@@ -65,7 +65,7 @@ namespace CSCE361CardGames.Models
                     foreach (Card.Ranks r in Enum.GetValues(typeof(Card.Ranks)))
                     {
                         Card card = new Card(s, r);
-                        deckOfCards.Add(card);
+                        DeckOfCards.Add(card);
                     }
                 }
             }
@@ -74,20 +74,20 @@ namespace CSCE361CardGames.Models
             public void ShuffleDeck()
             {
                 Random random = new Random();
-                for (int j = deckOfCards.Count - 1; j > 0; j--)
+                for (int j = DeckOfCards.Count - 1; j > 0; j--)
                 {
-                    var i = random.Next(deckOfCards.Count);
-                    Card temp = deckOfCards[i];
-                    deckOfCards[i] = deckOfCards[j];
-                    deckOfCards[j] = temp;
+                    var i = random.Next(DeckOfCards.Count);
+                    Card temp = DeckOfCards[i];
+                    DeckOfCards[i] = DeckOfCards[j];
+                    DeckOfCards[j] = temp;
                 }
             }
 
             public void AddToDeck(Card card)
             {
-                if (deckOfCards.Count() < 52)
+                if (DeckOfCards.Count() < 52)
                 {
-                    deckOfCards.Add(card);
+                    DeckOfCards.Add(card);
                 }
                 else
                 {
@@ -98,13 +98,13 @@ namespace CSCE361CardGames.Models
 
             public void TakeFromDeck(Card card)
             {
-                deckOfCards.Remove(card);
+                DeckOfCards.Remove(card);
             }
 
             public Card TakeFromDeckAt(int index)
             {
-                Card removed = deckOfCards[index];
-                deckOfCards.RemoveAt(index);
+                Card removed = DeckOfCards[index];
+                DeckOfCards.RemoveAt(index);
                 return removed;
             }
             /*
