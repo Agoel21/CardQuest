@@ -30,7 +30,31 @@ namespace CSCE361CardGames.Controllers
             return deck.deckOfCards;
         }
 
+        [HttpPost]
+        public string Post()
+        {
+            string connectionString = _configuration.GetConnectionString("DefaultConnection");
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM [dbo].[Games]";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                }
+            }
+            return "Post";
+        }
+
+        [HttpPost]
+        public string Post([FromBody] LoginCredentials credentials)
+        {
+            string username = credentials.Username;
+            string password = credentials.Password;
+
+            return username + " " + password;
+        }
 
 
 

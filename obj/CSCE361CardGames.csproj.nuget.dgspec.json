@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/bkayigamba2@unl.edu/Documents/GitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj": {}
+    "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/CSCE361CardGames.csproj": {}
   },
   "projects": {
-    "/Users/bkayigamba2@unl.edu/Documents/GitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj": {
+    "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/CSCE361CardGames.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bkayigamba2@unl.edu/Documents/GitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj",
+        "projectUniqueName": "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/CSCE361CardGames.csproj",
         "projectName": "CSCE361CardGames",
-        "projectPath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj",
+        "projectPath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/CSCE361CardGames.csproj",
         "packagesPath": "/Users/bkayigamba2@unl.edu/.nuget/packages/",
-        "outputPath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/CSCE361-Capstone-Project-Group9/obj/",
+        "outputPath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bkayigamba2@unl.edu/.nuget/NuGet/NuGet.Config"

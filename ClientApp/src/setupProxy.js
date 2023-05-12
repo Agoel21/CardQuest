@@ -6,7 +6,7 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 
 // TODO: add the stuff we want to use in the front end
 const context =  [
-  "/weatherforecast",
+  "/games",
 ];
 
 module.exports = function(app) {

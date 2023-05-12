@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9b4Pbqq0qvE6JUehJEAKtunyBvFApiIAdPnPoGN2PvWIdJKcgYikk+CnOvGh9y9wd/3yfG6/r/FvSLspJW8asg==",
+  "dgSpecHash": "Z6qtZd3PTaPmRKDgCcfHqVsFe9XP9+Fh/KAJ4S/n5uDCyvfgY7Lrm3LYoXrboSRvbueQ0vUA5f4jNkdd/dMDgA==",
   "success": true,
-  "projectFilePath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/CSCE361-Capstone-Project-Group9/CSCE361CardGames.csproj",
+  "projectFilePath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/CSCE361CardGames.csproj",
   "expectedPackageFiles": [
     "/Users/bkayigamba2@unl.edu/.nuget/packages/azure.core/1.24.0/azure.core.1.24.0.nupkg.sha512",
     "/Users/bkayigamba2@unl.edu/.nuget/packages/azure.identity/1.6.0/azure.identity.1.6.0.nupkg.sha512",

@@ -1,15 +1,12 @@
-use master
+DROP TABLE IF EXISTS [dbo].[Games];
 
-DROP DATABASE IF EXISTS games
-
-    CREATE TABLE games
-    (
-        Id INT NOT NULL PRIMARY KEY IDENTITY,
-        StartTime DATETIME,
-        EndTime DATETIME,
-        Winner VARCHAR(255)
-    )
-
+CREATE TABLE [dbo].[Games]
+(
+    Id INT NOT NULL PRIMARY KEY IDENTITY,
+    StartTime DATETIME,
+    EndTime DATETIME,
+    Winner VARCHAR(255)
+);
 
 
 
