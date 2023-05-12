@@ -7,6 +7,7 @@ using static CSCE361CardGames.Controllers.SetupController;
 using static CSCE361CardGames.Controllers.PlayerController;
 using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CSCE361CardGames.Controllers
 {
@@ -159,7 +160,8 @@ namespace CSCE361CardGames.Controllers
                     {
                         PassTurn();
                     }
-                } else if (card.Rank.Equals((Card.Ranks)8))
+                }
+                else if (card.Rank.Equals((Card.Ranks)8))
                 {
                     CurrentPlayer?.Value.Hand.RemoveCard(card);
                     SwapActiveCardTo(card);
@@ -183,7 +185,7 @@ namespace CSCE361CardGames.Controllers
                     Console.WriteLine("Choose a wildcard suit: \n 1) Clubs \n 2) Diamonds \n 3) Hearts \n 4) Spades");
                     choice = (char)Console.ReadKey().Key;
                 }
-                return (Card.Suits)(choice-48);
+                return (Card.Suits)(choice - 48);
             }
 
             public void SwapActiveCardTo(Card card)

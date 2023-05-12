@@ -1,18 +1,7 @@
-IF NOT EXISTS (SELECT name
-FROM sys.databases
-WHERE name = 'gamecard')
-BEGIN
-    CREATE DATABASE [gamecard]
-END
-GO
+use master
 
-USE [gamecard]
-GO
+DROP DATABASE IF EXISTS games
 
-IF NOT EXISTS (SELECT *
-FROM sys.tables
-WHERE name = 'games')
-BEGIN
     CREATE TABLE games
     (
         Id INT NOT NULL PRIMARY KEY IDENTITY,
@@ -20,7 +9,7 @@ BEGIN
         EndTime DATETIME,
         Winner VARCHAR(255)
     )
-END
+
 
 
 
