@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSCE361CardGames", "CSCE361CardGames.csproj", "{6F162D3D-8112-49F6-86CD-FC8625FDAE42}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject2", "TestProject2\TestProject2.csproj", "{8E1112C3-B180-4423-BB50-A1394A11E288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTesting", "TestProject2\UnitTesting.csproj", "{8E1112C3-B180-4423-BB50-A1394A11E288}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

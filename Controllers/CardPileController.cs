@@ -61,10 +61,6 @@ namespace CSCE361CardGames.Controllers
                         AvailableCards.Add(deck.TakeFromDeckAt(random.Next(deck.DeckOfCards.Count)));
                     }
                 }
-                else
-                {
-                    // Console.WriteLine("Attempted to take more cards than remain in the deck, or a non-positive amount of cards");
-                }
             }
 
             public Card TakeCardAt(int index)
