@@ -17,7 +17,6 @@ namespace CSCE361CardGames.Controllers
             */
             public void BuildColumn(Deck deck, int amountForReserve);
 
-            //TODO: enforce alternating color/descending numbers here
             /*
             * Removes the chosen card and any cards above
             * from the active stack of the column.
