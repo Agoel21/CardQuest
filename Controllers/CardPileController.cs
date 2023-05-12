@@ -5,7 +5,7 @@ using static CSCE361CardGames.Models.DeckModel;
 
 namespace CSCE361CardGames.Controllers
 {
-    public class SetupController
+    public class CardPileController
     {
         /*
          * Interface for modifying a pile of cards.
@@ -44,21 +44,21 @@ namespace CSCE361CardGames.Controllers
          */
         public class CardPile : ICardPile
         {
-            public List<Card> availableCards = new();
+            public List<Card> AvailableCards = new();
 
             public void SetCards(List<Card> cards)
             {
-                availableCards = cards;
+                AvailableCards = cards;
             }
 
             public void GrabCards(Deck deck, int amount)
             {
-                if (amount <= deck.deckOfCards.Count && amount > 0)
+                if (amount <= deck.DeckOfCards.Count && amount > 0)
                 {
                     Random random = new Random();
                     for (int i = 0; i < amount; i++)
                     {
-                        availableCards.Add(deck.TakeFromDeckAt(random.Next(deck.deckOfCards.Count)));
+                        AvailableCards.Add(deck.TakeFromDeckAt(random.Next(deck.DeckOfCards.Count)));
                     }
                 }
                 else
@@ -69,24 +69,24 @@ namespace CSCE361CardGames.Controllers
 
             public Card TakeCardAt(int index)
             {
-                Card targetCard = availableCards[index];
-                availableCards.RemoveAt(index);
+                Card targetCard = AvailableCards[index];
+                AvailableCards.RemoveAt(index);
                 return targetCard;
             }
 
             public void RemoveCard(Card card)
             {
-                availableCards.Remove(card);
+                AvailableCards.Remove(card);
             }
 
             public void RemoveCardAt(int index)
             {
-                availableCards.RemoveAt(index);
+                AvailableCards.RemoveAt(index);
             }
 
             public void AddCard(Card card)
             {
-                availableCards.Add(card);
+                AvailableCards.Add(card);
             }
         }
     }

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSCE361CardGames", "CSCE361CardGames.csproj", "{6F162D3D-8112-49F6-86CD-FC8625FDAE42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGamesTests", "..\TestProject1\CardGamesTests.csproj", "{C2931036-11D9-4FD5-B5F2-6379290B9E3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject2", "TestProject2\TestProject2.csproj", "{8E1112C3-B180-4423-BB50-A1394A11E288}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{6F162D3D-8112-49F6-86CD-FC8625FDAE42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F162D3D-8112-49F6-86CD-FC8625FDAE42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F162D3D-8112-49F6-86CD-FC8625FDAE42}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2931036-11D9-4FD5-B5F2-6379290B9E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2931036-11D9-4FD5-B5F2-6379290B9E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2931036-11D9-4FD5-B5F2-6379290B9E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2931036-11D9-4FD5-B5F2-6379290B9E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E1112C3-B180-4423-BB50-A1394A11E288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E1112C3-B180-4423-BB50-A1394A11E288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E1112C3-B180-4423-BB50-A1394A11E288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E1112C3-B180-4423-BB50-A1394A11E288}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

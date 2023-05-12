@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Draggable, Droppable } from 'react-drag-and-drop';
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -23,17 +22,7 @@ export class Home extends Component {
                   //Drag me
                   */
               />
-              <Draggable type="foo" data="bar">
-                  <div>
-                      <img src={require('../assets/ace_of_clubs.png')} alt="Test Image" />
-                  </div>
-              </Draggable>
-
-              <Droppable types={['foo']} onDrop={this.handleDrop}>
-                  <div>
-                      <img src={require('../assets/king_of_spades.png')} alt="Test Image" />
-                  </div>
-              </Droppable>
+              
       </div>
     );
   }

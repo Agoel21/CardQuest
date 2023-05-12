@@ -11414,11 +11414,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/CSCE361CardGames.csproj",
+      "projectUniqueName": "C:\\Users\\Landon\\source\\repos\\CSCE361-Capstone-Project\\CSCE361CardGames.csproj",
       "projectName": "CSCE361CardGames",
-      "projectPath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/CSCE361CardGames.csproj",
-      "packagesPath": "/Users/bkayigamba2@unl.edu/.nuget/packages/",
-      "outputPath": "/Users/bkayigamba2@unl.edu/Documents/GitHub/Group9/Untitled/obj/",
+      "projectPath": "C:\\Users\\Landon\\source\\repos\\CSCE361-Capstone-Project\\CSCE361CardGames.csproj",
+      "packagesPath": "C:\\Users\\Landon\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Landon\\source\\repos\\CSCE361-Capstone-Project\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/bkayigamba2@unl.edu/.nuget/NuGet/NuGet.Config"
