@@ -39,7 +39,7 @@ html, body, #root {
 .foundation {
     border: 6px solid #4fba5a;
     background-color: #34a249;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

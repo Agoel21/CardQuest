@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import "./Crazy8s.css";
+import { PlayerHand } from './PlayerHand';
+import { TableCard } from './TableCard';
 
     export default function Crazy8s(){
 
@@ -13,7 +15,7 @@ import "./Crazy8s.css";
         { player: 6, cards: [], isCurrentPlayer: false },
       ];
       const [playerHands, setPlayerHands] = useState(players);
-
+      const [tableCard, setTableCard] = useState(null);
 
       function playCard(playerIndex, cardIndex) {
         // TODO; update state to remove the card from the player's hand and add it to the table

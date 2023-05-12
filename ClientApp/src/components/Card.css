@@ -1,7 +1,7 @@
 
 .card {
-    width: 80px;
-    height: 120px;
+    width: 100px;
+    height: 150px;
     border: 1px solid #333;
     border-radius: 5px;
     background-color: #fff;
@@ -18,35 +18,5 @@
         background-image: url("");
     }
 
-    .card .rank {
-        font-size: 24px;
-        font-weight: bold;
-        position: absolute;
-        top: 5px;
-        left: 5px;
-    }
-
-    .card .rank.red {
-        color: red;
-    }
-
-    .card .rank.black {
-            color: black;
-    }
-    .card .suit {
-        font-size: 24px;
-        font-weight: bold;
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-    }
-
-    .card .suit.red {
-        color: red;
-    }
-
-    .card .suit.black {
-        color: black;
-    }
 
 

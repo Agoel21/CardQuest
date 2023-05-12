@@ -1,10 +1,5 @@
 import "./Solitaire.css";
 import { useEffect, useState } from "react";
-import Card from "../Card"
-import Waste from "./Waste"
-import Tableau from "./Tableau"
-import Stock from "./Stock"
-import Foundation from "./Foundation";
 import { Container, Row, Col } from "react-bootstrap";
 
 
@@ -89,10 +84,7 @@ function Solitaire () {
         </Col>
       </Row>
         </Container>
-          {/* <div>
-            <Card />
-            HIIIIII......
-          </div>
+          {/* 
           <div>
             <Waste cards={deck} />
           </div>
