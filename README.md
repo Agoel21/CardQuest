@@ -7,10 +7,12 @@ architecture pattern.
 ## Frontend
 The front-end portion of the project is built with Javascript and Javascript's React library. There are boards for the card games as
 well as placeholders for where card images would be in an actual game. Currently, the front-end is not functional and has no way to access
-the models or controllers. 
+the models or controllers. All of the code for the front-end is located in the ClientApp folder, with most of the card game components being located in ClientApp/src/components.
 ## Database
 The project also contains a database connection made in one of the controllers named GameController. The database can be connected to the project,
 but it currently serves no purpose in the functionality of the card games.
 ## UnitTests
 The unit tests for the various methods within the controllers are found under the TestProject2 folder. The tests are separated into their own test files for each respective controller.
+## Instuctions
+To play the card games the user must configure their startup project to be the CSCE361CardGamesConsole project. Running CSCE361CardGames will take the user to a webpage where nothing is displayed. 
 
