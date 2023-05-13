@@ -47,14 +47,14 @@ namespace CSCE361CardGames.Controllers
             return "Post";
         }
 
-        [HttpPost]
-        public string Post([FromBody] LoginCredentials credentials)
-        {
-            string username = credentials.Username;
-            string password = credentials.Password;
-
-            return username + " " + password;
-        }
+        //[HttpPost]
+        //public string Post([FromBody] LoginCredentials credentials)
+        //{
+        //    string username = credentials.Username;
+        //    string password = credentials.Password;
+        //  
+        //    return username + " " + password;
+        //}
 
 
 
