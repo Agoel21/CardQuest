@@ -32,10 +32,10 @@ namespace CSCE361CardGamesConsole
 
                 if (choice.Equals('1'))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("You selected Solitaire!");
                     SolitaireView newGame = new();
-                    newGame.PlaySolitaire();
+                    newGame.StartSolitaireGame();
 
                 }
                 else if (choice.Equals('2'))

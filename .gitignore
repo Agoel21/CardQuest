@@ -230,3 +230,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/.vs/CSCE361CardGames/v17/.suo
+/obj/Debug/net6.0/CSCE361CardGames.GeneratedMSBuildEditorConfig.editorconfig
+/obj/Debug/net6.0/CSCE361CardGames.assets.cache
