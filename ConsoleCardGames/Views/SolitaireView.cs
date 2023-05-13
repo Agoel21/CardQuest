@@ -147,7 +147,8 @@ namespace CSCE361CardGamesConsole.Views
                 Console.WriteLine("SpadesFoundation:");
                 print.PrintFoundation(board.SpadesFoundation);
 
-                Console.WriteLine("Select Card as 'column,card index'");
+                Console.WriteLine("Select a card and if there is a legal move to make with that card, the card will automatically move to its destination.");
+                Console.WriteLine("Select a card as 'column,card index'");
                 Console.WriteLine("0,?: choose top card of waste pile (index doesn't matter)");
                 Console.WriteLine("1-7,0-LastIndex: choose columns 1-7, then index of card in active pile");
                 Console.WriteLine("8,?: Add card from stockpile to waste pile (index doesn't matter)");
