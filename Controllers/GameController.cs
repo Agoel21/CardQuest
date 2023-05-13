@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,10 @@ namespace CSCE361CardGames.Controllers
         public GameController(IConfiguration configuration)
         {
             _configuration = configuration;
+        }
+        public GameController()
+        {
+            _configuration = null;
         }
         [HttpGet]
         public IEnumerable<Card> Get()
@@ -62,22 +67,28 @@ namespace CSCE361CardGames.Controllers
 
         public void WriteGameToDatabase(DateTime startTime, DateTime endTime, string winner)
         {
-            // if winner matches some injection attack preventing REGEX
-            string connectionString = _configuration.GetConnectionString("DefaultConnection");
+            /* Validation regular expression adapted from https://learn.microsoft.com/en-us/previous-versions/msp-n-p/ff648339(v=pandp.10) */
+            if (!Regex.IsMatch(winner, @"^[a-zA-Z0-9'./s]{1,50}$")) {
+                winner = "Player Name Removed";
+            }
+
+            string connectionString = "Data Source = LAPTOP-OASNFJQ1\\SQLEXPRESS; Initial Catalog = Games; Integrated Security = true";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new("INSERT into [dbo].[Games](StartTime, EndTime, Winner) values (@startTime, @endTime, @winner)", connection);
-                command.Parameters["@startTime"].Value = startTime;
-                command.Parameters["@startTime"].Value = endTime;
-                command.Parameters["@startTime"].Value = winner;
+                SqlCommand command = new("INSERT into Games(StartTime, EndTime, Winner) values (@startTime, @endTime, @winner)", connection);
+                command.Parameters.AddWithValue("@startTime", startTime);
+                command.Parameters.AddWithValue("@endTime", endTime);
+                command.Parameters.AddWithValue("@winner", winner);
 
                 using (command)
                 {
                     connection.Open();
                     command.BeginExecuteNonQuery();
+                    connection.Close();
                 }
             }
+            
         }
 
         /*

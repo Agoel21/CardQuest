@@ -186,12 +186,14 @@ namespace CSCE361CardGamesConsole.Views
 
                 }
 
+                Console.WriteLine($"{Board.CurrentPlayer?.Value.PlayerName} wins!");
+
                 EndTime = DateTime.Now;
 
-                //GameController dataWriter = new();
-                //dataWriter.WriteGameToDatabase(StartTime, EndTime, Board.CurrentPlayer?.Value.PlayerName);
+                GameController dataWriter = new();
+                dataWriter.WriteGameToDatabase(StartTime, EndTime, Board.CurrentPlayer!.Value.PlayerName);
 
-                Console.WriteLine($"{Board.CurrentPlayer?.Value.PlayerName} wins!");
+                
                 Console.WriteLine();
 
             }
