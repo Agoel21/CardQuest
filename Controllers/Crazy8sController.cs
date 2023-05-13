@@ -79,7 +79,7 @@ namespace CSCE361CardGames.Controllers
             public LinkedList<Player> Players = new();
             public LinkedListNode<Player>? CurrentPlayer { get; set; }
             public CardPile Stockpile = new();
-            public Deck Activedeck = new();
+            public Deck ActiveDeck = new();
             public Card? ActiveCard { get; set; }
             public Card.Suits ActiveSuit;
 
@@ -133,12 +133,12 @@ namespace CSCE361CardGames.Controllers
                 else
                 {
                     Console.WriteLine("Stockpile empty! Shuffling cards."); //debug statement
-                    Activedeck.ShuffleDeck();
-                    foreach (Card c in Activedeck.DeckOfCards)
+                    ActiveDeck.ShuffleDeck();
+                    foreach (Card c in ActiveDeck.DeckOfCards)
                     {
                         Stockpile.AddCard(c);
                     }
-                    Activedeck.DeckOfCards.Clear();
+                    ActiveDeck.DeckOfCards.Clear();
                     PassTurn();
                 }
 
@@ -170,7 +170,7 @@ namespace CSCE361CardGames.Controllers
                 {
                     if (!ActiveCard.Rank.Equals(null))
                     {
-                        Activedeck.AddToDeck(ActiveCard);
+                        ActiveDeck.AddToDeck(ActiveCard);
                     }
                     ActiveCard = card;
                 }

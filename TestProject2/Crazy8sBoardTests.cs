@@ -168,7 +168,7 @@ namespace CardGamesTests
 
             Deck deck = new();
             deck.FillDeck();
-            board.Activedeck.DeckOfCards = deck.DeckOfCards;
+            board.ActiveDeck.DeckOfCards = deck.DeckOfCards;
 
             board.DrawFromStockPile();
 

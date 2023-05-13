@@ -1,3 +1,8 @@
+/*
+ * This controller is meant to handle the 
+ * connection to the database.
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,6 +14,13 @@ using static CSCE361CardGames.Models.DeckModel;
 
 namespace CSCE361CardGames.Controllers
 {
+
+    /*
+     * This class sets up the database
+     * connection and includes the Post()
+     * method which can be used to check if the 
+     * connection was successful.
+     */
     [Route("[controller]")]
     [ApiController]
     public class GameController : ControllerBase
