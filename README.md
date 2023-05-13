@@ -12,7 +12,7 @@ well as placeholders for where card images would be in an actual game. Currently
 the models or controllers. All of the code for the front-end is located in the ClientApp folder, with most of the card game components being located in ClientApp/src/components.
 ## Database
 The project also contains a database connection made in one of the controllers named GameController. The database can be connected to the project,
-but it currently serves no purpose in the functionality of the card games.
+but it currently serves no purpose in the functionality of the card games. Currently the database is only functional on one team member's local SQL server. As a result, though other users can still run games as normal, their data will not be written into the database.
 ## UnitTests
 The unit tests for the various methods within the controllers are found under the TestProject2 folder. The tests are separated into their own test files for each respective controller.
 
