@@ -1,4 +1,11 @@
-﻿using static CSCE361CardGames.Controllers.CardPileController;
+﻿/*
+ * This is a controller for the Foundation
+ * interface/class and all of its methods.
+ * Foundation objects are only used in
+ * Solitaire.
+ */
+
+using static CSCE361CardGames.Controllers.CardPileController;
 using static CSCE361CardGames.Models.CardModel;
 
 namespace CSCE361CardGames.Controllers

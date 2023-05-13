@@ -1,4 +1,12 @@
-﻿using static CSCE361CardGames.Controllers.CardPileController;
+﻿/*
+ * This is a controller for the SolitaireBoard
+ * interface/class and all of its methods.
+ * SolitaireBoard is only used for Solitaire
+ * and makes use of the TableauColumn, CardPile,
+ * and FoundationController classes.
+ */
+
+using static CSCE361CardGames.Controllers.CardPileController;
 using static CSCE361CardGames.Controllers.FoundationController;
 using static CSCE361CardGames.Controllers.TableauColumnController;
 using static CSCE361CardGames.Models.CardModel;

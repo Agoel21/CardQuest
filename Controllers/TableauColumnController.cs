@@ -1,4 +1,11 @@
-﻿using static CSCE361CardGames.Controllers.CardPileController;
+﻿/*
+ * This is a controller for the TableauColumn 
+ * interface/class and all of its methods.
+ * TableauColumn objects are only used in 
+ * Solitaire.
+ */
+
+using static CSCE361CardGames.Controllers.CardPileController;
 using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
 

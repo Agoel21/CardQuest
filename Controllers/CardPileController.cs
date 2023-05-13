@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * This is a controller for the CardPile
+ * interface/class and all of its methods.
+ * CardPile objects are used in both 
+ * Crazy8s and Solitaire.
+ */
+
+using System;
 using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
 
