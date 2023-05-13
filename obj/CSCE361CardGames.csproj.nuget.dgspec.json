@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj": {}
+    "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj": {
+    "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
+        "projectUniqueName": "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj",
         "projectName": "CSCE361CardGames",
-        "projectPath": "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\CSCE361CardGames.csproj",
-        "packagesPath": "C:\\Users\\Kate\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kate\\source\\repos\\CSCE361-Capstone-Project-Group9\\obj\\",
+        "projectPath": "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj",
+        "packagesPath": "C:\\Users\\Landon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Landon\\source\\repos\\CardGameProj\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Kate\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Landon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -83,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

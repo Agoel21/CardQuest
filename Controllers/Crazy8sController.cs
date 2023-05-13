@@ -12,6 +12,7 @@ namespace CSCE361CardGames.Controllers
 {
     public class Crazy8sController
     {
+
         /*
          * Interface for the Crazy8sBoard Class.
          */
@@ -34,8 +35,12 @@ namespace CSCE361CardGames.Controllers
              * cards to every player and choosing the 
              * starting card.
              */
-            void GenerateBoard();
+            void GenerateBoard();           
 
+        }
+
+        interface ICrazy8sGame
+        {
             /*
              * Puts the card from the top of the stockpile
              * (index 0) into the current player's hand.
@@ -74,10 +79,9 @@ namespace CSCE361CardGames.Controllers
              * Sets the current player to the next player in the list.
              */
             void PassTurn();
-
         }
 
-        public class Crazy8sBoard : ICrazy8sBoard
+        public class Crazy8sBoard : ICrazy8sBoard, ICrazy8sGame
         {
             public LinkedList<Player> Players = new();
             public LinkedListNode<Player>? CurrentPlayer { get; set; }
