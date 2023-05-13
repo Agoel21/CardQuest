@@ -27,7 +27,7 @@ namespace CSCE361CardGames.Controllers
             deck.FillDeck();
             deck.ShuffleDeck();
 
-            return deck.deckOfCards;
+            return deck.DeckOfCards;
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace CSCE361CardGames.Controllers
             }
             return "Post";
         }
-
+        /*
         [HttpPost]
         public string Post([FromBody] LoginCredentials credentials)
         {
@@ -55,7 +55,7 @@ namespace CSCE361CardGames.Controllers
 
             return username + " " + password;
         }
-
+        */
 
 
 
