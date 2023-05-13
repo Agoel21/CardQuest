@@ -27,7 +27,7 @@ namespace CSCE361CardGames.Controllers
             deck.FillDeck();
             deck.ShuffleDeck();
 
-            return deck.deckOfCards;
+            return deck.DeckOfCards;
         }
 
         [HttpPost]
