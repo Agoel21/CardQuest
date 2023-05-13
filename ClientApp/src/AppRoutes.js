@@ -1,5 +1,6 @@
-import { Crazy8s } from "./components/Crazy8s";
-import { Home } from "./components/Home";
+import Crazy8s  from "./components/Crazy8s/Crazy8s";
+import Solitaire from "./components/Solitaire/Solitaire";
+import { Home } from "./components/Home/Home";
 
 const AppRoutes = [
   {
@@ -7,10 +8,15 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/counter',
+    path: '/crazy-8s',
     element: <Crazy8s />
     },
-
+  
+  {
+    path: '/solitaire',
+    element: <Solitaire />
+  },
+  
 ];
 
 export default AppRoutes;

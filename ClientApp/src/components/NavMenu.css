@@ -15,4 +15,5 @@ html {
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  background-color: rgba(3, 12, 255, 0.573);
 }
