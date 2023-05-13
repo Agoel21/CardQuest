@@ -47,59 +47,58 @@ namespace CSCE361CardGames.Controllers
             return "Post";
         }
 
-        //[HttpPost]
-        //public string Post([FromBody] LoginCredentials credentials)
-        //{
-        //    string username = credentials.Username;
-        //    string password = credentials.Password;
-        //  
-        //    return username + " " + password;
-        //}
+        /*
+        [HttpPost]
+        public string Post([FromBody] LoginCredentials credentials)
+        {
+            string username = credentials.Username;
+            string password = credentials.Password;
+
+            return username + " " + password;
+        }
+        */
+
+        /*
+        PUT: api/Game/{id
+        }
+        [HttpPut("{id}")]
+        public IActionResult UpdateGame(int id, [FromBody] Game game)
+        {
+            // Construct the connection string using the "DefaultConnection" configuration value
+            string connectionString = _configuration.GetConnectionString("DefaultConnection")!;
 
 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE games SET StartTime = @StartTime, EndTime = @EndTime, Winner = @Winner WHERE Id = @Id";
 
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@StartTime", game.StartTime);
+                    command.Parameters.AddWithValue("@EndTime", game.EndTime);
+                    command.Parameters.AddWithValue("@Winner", game.Winner);
 
+                    connection.Open();
 
+                    int rowsAffected = command.ExecuteNonQuery();
 
-
-
-        // PUT: api/Game/{id}
-        // [HttpPut("{id}")]
-        // public IActionResult UpdateGame(int id, [FromBody] Game game)
-        // {
-        //     // Construct the connection string using the "DefaultConnection" configuration value
-        //     string connectionString = _configuration.GetConnectionString("DefaultConnection")!;
-
-
-        //     using (SqlConnection connection = new SqlConnection(connectionString))
-        //     {
-        //         string query = "UPDATE games SET StartTime = @StartTime, EndTime = @EndTime, Winner = @Winner WHERE Id = @Id";
-
-        //         using (SqlCommand command = new SqlCommand(query, connection))
-        //         {
-        //             command.Parameters.AddWithValue("@Id", id);
-        //             command.Parameters.AddWithValue("@StartTime", game.StartTime);
-        //             command.Parameters.AddWithValue("@EndTime", game.EndTime);
-        //             command.Parameters.AddWithValue("@Winner", game.Winner);
-
-        //             connection.Open();
-
-        //             int rowsAffected = command.ExecuteNonQuery();
-
-        //             if (rowsAffected > 0)
-        //             {
-        //                 // Update successful
-        //                 return Ok();
-        //             }
-        //             else
-        //             {
-        //                 // No records were updated (game with the specified id not found)
-        //                 return NotFound();
-        //             }
-        //         }
-        //     }
-        // }
+                    if (rowsAffected > 0)
+                    {
+                        // Update successful
+                        return Ok();
+                    }
+                    else
+                    {
+                        // No records were updated (game with the specified id not found)
+                        return NotFound();
+                    }
+                }
+            }
+        }
+        */
     }
+    
 
     public class Game
     {
