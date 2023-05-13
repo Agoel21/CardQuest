@@ -12,106 +12,147 @@ namespace CSCE361CardGamesConsole.Views
 {
     public class SolitaireView
     {
-        public void PrintReserve(TableauColumn column)
+        interface IPrintFunctions
         {
-            int count = 0;
-            Console.WriteLine("Reserve:");
-            foreach (Card card in column.Reserve.AvailableCards)
-            {
-                if (card.Color == Card.Colors.Black)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
-                Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
-                Console.ForegroundColor = ConsoleColor.Red;
-                count++;
-            }
-            Console.WriteLine();
+            /*
+             * Prints the cards in reserve for the given column.
+             */
+            public void PrintReserve(TableauColumn column);
+
+            /*
+             * Prints the cards in active for the given column.
+             */
+            public void PrintActive(TableauColumn column);
+
+            /*
+             * Prints the cards in the given foundation.
+             */
+            public void PrintFoundation(Foundation foundation);
         }
 
-        public void PrintActive(TableauColumn column)
+        public class PrintFunctions : IPrintFunctions
         {
-            Console.WriteLine("Active:");
-            int count = 0;
-            foreach (Card card in column.Active.AvailableCards)
+            public void PrintReserve(TableauColumn column)
             {
-                if (card.Color == Card.Colors.Black)
+                int count = 0;
+                Console.WriteLine("Reserve:");
+                foreach (Card card in column.Reserve.AvailableCards)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    if (card.Color == Card.Colors.Black)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
+                    }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    count++;
                 }
-                Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
-                Console.ForegroundColor = ConsoleColor.Red;
-                count++;
-            }
-            Console.WriteLine();
-        }
 
-        public void PrintFoundation(Foundation foundation)
-        {
-            int count = 0;
-
-            foreach (Card card in foundation.SuitFoundation.AvailableCards)
-            {
-                if (card.Color == Card.Colors.Black)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
-                Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
-                Console.ForegroundColor = ConsoleColor.Red;
-                count++;
+                Console.WriteLine();
             }
 
-            Console.WriteLine();
+            public void PrintActive(TableauColumn column)
+            {
+                Console.WriteLine("Active:");
+                int count = 0;
+                foreach (Card card in column.Active.AvailableCards)
+                {
+                    if (card.Color == Card.Colors.Black)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
+                    }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    count++;
+                }
+
+                Console.WriteLine();
+            }
+
+            public void PrintFoundation(Foundation foundation)
+            {
+                int count = 0;
+
+                foreach (Card card in foundation.SuitFoundation.AvailableCards)
+                {
+                    if (card.Color == Card.Colors.Black)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(count + ": " + card.Rank + " of " + card.Suit + "\n");
+                    }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    count++;
+                }
+
+                Console.WriteLine();
+            }
         }
 
-        public void PlaySolitaire() //temp name probably
+        public void StartSolitaireGame()
         {
             Deck deck = new Deck();
             deck.FillDeck();
             deck.ShuffleDeck();
             SolitaireBoard board = new SolitaireBoard();
             board.GenerateBoard();
+            PrintFunctions print = new PrintFunctions();
+
             while (true)
             {
                 Console.WriteLine("-------------------------------------------------------------------------------");
                 Console.WriteLine("Waste");
                 Console.WriteLine("waste pile = " + board.WasteColumn.Reserve.AvailableCards.Count);
-                PrintActive(board.WasteColumn);
+                print.PrintActive(board.WasteColumn);
                 Console.WriteLine("Column 1");
                 Console.WriteLine("reserve = " + board.ColumnOne.Reserve.AvailableCards.Count);
-                PrintActive(board.ColumnOne);
+                print.PrintActive(board.ColumnOne);
                 Console.WriteLine("Column 2");
                 Console.WriteLine("reserve = " + board.ColumnTwo.Reserve.AvailableCards.Count);
-                PrintActive(board.ColumnTwo);
+                print.PrintActive(board.ColumnTwo);
                 Console.WriteLine("Column 3");
                 Console.WriteLine("reserve = " + board.ColumnThree.Reserve.AvailableCards.Count);
-                PrintActive(board.ColumnThree);
+                print.PrintActive(board.ColumnThree);
                 Console.WriteLine("Column 4");
                 Console.WriteLine("reserve = " + board.ColumnFour.Reserve.AvailableCards.Count);
-                PrintActive(board.ColumnFour);
+                print.PrintActive(board.ColumnFour);
                 Console.WriteLine("Column 5");
                 Console.WriteLine("reserve = " + board.ColumnFive.Reserve.AvailableCards.Count);
-                PrintActive(board.ColumnFive);
+                print.PrintActive(board.ColumnFive);
                 Console.WriteLine("Column 6");
                 Console.WriteLine("reserve = " + board.ColumnSix.Reserve.AvailableCards.Count);
-                PrintActive(board.ColumnSix);
+                print.PrintActive(board.ColumnSix);
                 Console.WriteLine("Column 7");
                 Console.WriteLine("reserve = " + board.ColumnSeven.Reserve.AvailableCards.Count);
-                PrintActive(board.ColumnSeven);
+                print.PrintActive(board.ColumnSeven);
                 Console.WriteLine("ClubsFoundation:");
-                PrintFoundation(board.ClubsFoundation);
+                print.PrintFoundation(board.ClubsFoundation);
                 Console.WriteLine("DiamondsFoundation:");
-                PrintFoundation(board.DiamondsFoundation);
+                print.PrintFoundation(board.DiamondsFoundation);
                 Console.WriteLine("HeartsFoundation:");
-                PrintFoundation(board.HeartsFoundation);
+                print.PrintFoundation(board.HeartsFoundation);
                 Console.WriteLine("SpadesFoundation:");
-                PrintFoundation(board.SpadesFoundation);
+                print.PrintFoundation(board.SpadesFoundation);
 
                 Console.WriteLine("Select Card as 'column,card index'");
                 Console.WriteLine("0,?: choose top card of waste pile (index doesn't matter)");
                 Console.WriteLine("1-7,0-LastIndex: choose columns 1-7, then index of card in active pile");
                 Console.WriteLine("8,?: Add card from stockpile to waste pile (index doesn't matter)");
                 Console.WriteLine("9,0-3: Move card back from foundation to tableau. 0=Clubs, 1=Diamonds, 2=Hearts, 3=Spades");
+                Console.WriteLine("10,?: Forfeit Game (index doesn't matter)");
                 var choicesLine = Console.ReadLine();
                 var data = choicesLine?.Split(',');
                 int columnChoice;
@@ -204,8 +245,41 @@ namespace CSCE361CardGamesConsole.Views
                                 break;
                         }
                         break;
+                    case 10:
+                        char choice = ' ';
+                        while (choice != 'Y' && choice != 'N')
+                        {
+                            Console.Write("\nAre you sure you want to forfeit? Y or N: ");
+                            choice = (char)Console.ReadKey().Key;
+                        }
+                        Console.WriteLine();
+                        if (choice.Equals('Y'))
+                        {
+                            return;
+                        }
+                        break;
+                }
+
+                if (board.ClubsFoundation.SuitFoundation.AvailableCards.Count == 13 &&
+                       board.DiamondsFoundation.SuitFoundation.AvailableCards.Count == 13 &&
+                       board.HeartsFoundation.SuitFoundation.AvailableCards.Count == 13 &&
+                       board.SpadesFoundation.SuitFoundation.AvailableCards.Count == 13)
+                {
+                    Console.WriteLine("ClubsFoundation:");
+                    print.PrintFoundation(board.ClubsFoundation);
+                    Console.WriteLine("DiamondsFoundation:");
+                    print.PrintFoundation(board.DiamondsFoundation);
+                    Console.WriteLine("HeartsFoundation:");
+                    print.PrintFoundation(board.HeartsFoundation);
+                    Console.WriteLine("SpadesFoundation:");
+                    print.PrintFoundation(board.SpadesFoundation);
+
+                    break;
                 }
             }
+
+            Console.WriteLine($"You Win!");
+            Console.WriteLine();
         }
     }
 }
