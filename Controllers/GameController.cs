@@ -1,11 +1,5 @@
-/*
- * This Controller is meant to set up a 
- * connection to the database.
- */
-
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +9,6 @@ using static CSCE361CardGames.Models.DeckModel;
 
 namespace CSCE361CardGames.Controllers
 {
-    /*
-     * This class handles the database connection and
-     * tests it using the Post() method.
-     */
     [Route("[controller]")]
     [ApiController]
     public class GameController : ControllerBase
@@ -56,28 +46,22 @@ namespace CSCE361CardGames.Controllers
             }
             return "Post";
         }
-        /*
-        public string createGame()
-        {
-            string connectionString = _configuration.GetConnectionString("DefaultConnection");
-            SqlConnection con = new SqlConnection(connectionString.GetConnectionString("[dbo].[Games]"));
-            con.Open();
-            SqlDataAdapter myCommand = new SqlDataAdapter("INSERT INTO [dbo].[Games](winner)values(@Winner)", con);
-            myCommand.Parameters.Add("@Winner”, SqlDbType.VarChar, 14);
-            myCommand.Parameters["@Winner"].Value = winner.Text;
-            myCommand.ExecuteNonQuery();
-        }
-        */
-        /*
-        [HttpPost]
-        public string Post([FromBody] LoginCredentials credentials)
-        {
-            string username = credentials.Username;
-            string password = credentials.Password;
 
-            return username + " " + password;
-        }
-        */
+        //[HttpPost]
+        //public string Post([FromBody] LoginCredentials credentials)
+        //{
+        //    string username = credentials.Username;
+        //    string password = credentials.Password;
+        //  
+        //    return username + " " + password;
+        //}
+
+
+
+
+
+
+
 
         // PUT: api/Game/{id}
         // [HttpPut("{id}")]

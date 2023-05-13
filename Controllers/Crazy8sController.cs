@@ -59,14 +59,6 @@ namespace CSCE361CardGames.Controllers
              */
             void PlayCard(Card card);
 
-            /*
-             * Upon playing an 8, the current player is prompted
-             * to choose the active suit, enforcing wildcard rules.
-             * 
-             * THIS IS A DEBUG METHOD AND SHOULD NOT REMAIN 
-             * IN THIS CONTROLLER.
-             */
-            Card.Suits ChooseWildcard();
 
             /*
              * Sets card to the active card, and returns the previous
@@ -169,30 +161,7 @@ namespace CSCE361CardGames.Controllers
                 {
                     CurrentPlayer?.Value.Hand.RemoveCard(card);
                     SwapActiveCardTo(card);
-                    //ActiveSuit = ChooseWildcard();
-                    //if (CurrentPlayer != null && CurrentPlayer.Value.Hand.availableCards.Count > 0)
-                    //{
-                    //    PassTurn();
-                    //}
                 }
-            }
-
-            /*
-             * Once the front end is implemented, this method MUST BE RELOCATED TO THE VIEW,
-             * as it will take player input directly.
-             * 
-             * This is also UNTESTED as of right now, since we don't have the wildcard logic in yet.
-             */
-            public Card.Suits ChooseWildcard()
-            {
-                char choice = ' ';
-                while (choice != '1' && choice != '2' && choice != '3' && choice != '4')
-                {
-                    Console.WriteLine("Choose a wildcard suit: \n 1) Clubs \n 2) Diamonds \n 3) Hearts \n 4) Spades");
-                    choice = (char)Console.ReadKey().Key;
-                }
-                PassTurn();
-                return (Card.Suits)(choice - 48);
             }
 
             public void SwapActiveCardTo(Card card)
@@ -210,7 +179,7 @@ namespace CSCE361CardGames.Controllers
 
             public void PassTurn()
             {
-                //Artificially circular linked list methodology adapted from https://stackoverflow.com/a/7332084
+                /* Artificially circular linked list methodology adapted from https://stackoverflow.com/a/7332084 */
                 CurrentPlayer = CurrentPlayer?.Next ?? CurrentPlayer?.List?.First;
 
             }
