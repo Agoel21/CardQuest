@@ -1,5 +1,7 @@
 # CSCE361-Capstone-Project-Group8
 
+## Notes For Grader
+To play the card games the user must configure their startup project to be the CSCE361CardGamesConsole project. Running CSCE361CardGames will take the user to a webpage where nothing is displayed. 
 ## Overview
 This project contains code that creates two card games, those being Solitaire and Crazy8s that can be played in the console.
 The project mainly consists of C# and Javascript, with a SQL database acting as the backend. The project uses the Model-View-Controller 
@@ -13,6 +15,4 @@ The project also contains a database connection made in one of the controllers n
 but it currently serves no purpose in the functionality of the card games.
 ## UnitTests
 The unit tests for the various methods within the controllers are found under the TestProject2 folder. The tests are separated into their own test files for each respective controller.
-## Instuctions
-To play the card games the user must configure their startup project to be the CSCE361CardGamesConsole project. Running CSCE361CardGames will take the user to a webpage where nothing is displayed. 
 
