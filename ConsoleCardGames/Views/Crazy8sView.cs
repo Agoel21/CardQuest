@@ -3,6 +3,7 @@ using static CSCE361CardGames.Models.DeckModel;
 using static CSCE361CardGames.Models.PlayerModel;
 using static CSCE361CardGames.Controllers.CardPileController;
 using static CSCE361CardGames.Controllers.Crazy8sController;
+using static CSCE361CardGames.Controllers.GameController;
 
 using CSCE361CardGames.Models;
 using CSCE361CardGames.Controllers;
@@ -59,6 +60,8 @@ namespace CSCE361CardGamesConsole.Views
             public Card? PreviousActiveCard { get; set; }
             public bool WildCardJustPlayed { get; set; }
             public bool WinnerWasFound { get; set; }
+            public DateTime StartTime = new();
+            public DateTime EndTime = new();
 
             public void InstantiatePlayers()
             {
@@ -159,6 +162,8 @@ namespace CSCE361CardGamesConsole.Views
 
                 Board.GenerateBoard();
 
+                StartTime = DateTime.Now;
+
                 PrintAllHands();
 
                 while (Board.CurrentPlayer != null && !WinnerWasFound)
@@ -180,6 +185,12 @@ namespace CSCE361CardGamesConsole.Views
                     Console.WriteLine();
 
                 }
+
+                EndTime = DateTime.Now;
+
+                //GameController dataWriter = new();
+                //dataWriter.WriteGameToDatabase(StartTime, EndTime, Board.CurrentPlayer?.Value.PlayerName);
+
                 Console.WriteLine($"{Board.CurrentPlayer?.Value.PlayerName} wins!");
                 Console.WriteLine();
 

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
@@ -57,6 +58,26 @@ namespace CSCE361CardGames.Controllers
                 }
             }
             return "Post";
+        }
+
+        public void WriteGameToDatabase(DateTime startTime, DateTime endTime, string winner)
+        {
+            // if winner matches some injection attack preventing REGEX
+            string connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new("INSERT into [dbo].[Games](StartTime, EndTime, Winner) values (@startTime, @endTime, @winner)", connection);
+                command.Parameters["@startTime"].Value = startTime;
+                command.Parameters["@startTime"].Value = endTime;
+                command.Parameters["@startTime"].Value = winner;
+
+                using (command)
+                {
+                    connection.Open();
+                    command.BeginExecuteNonQuery();
+                }
+            }
         }
 
         /*
