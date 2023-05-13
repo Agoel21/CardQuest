@@ -26,6 +26,7 @@ namespace CSCE361CardGamesConsole
                 {
                     Console.Write("Enter 1 for Solitaire, 2 for Crazy 8s, H for game rules, or Q to quit: ");
                     choice = (char)Console.ReadKey().Key;
+                    Console.WriteLine();
                 }
                 Console.WriteLine();
 
