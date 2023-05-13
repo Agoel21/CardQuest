@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Landon\\source\\repos\\CapstoneProject\\CSCE361CardGames.csproj": {}
   },
   "projects": {
@@ -16,6 +17,22 @@
         "configFilePaths": [
           "C:\\Users\\Landon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+    "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj",
+        "projectName": "CSCE361CardGames",
+        "projectPath": "C:\\Users\\Landon\\source\\repos\\CardGameProj\\CSCE361CardGames.csproj",
+        "packagesPath": "C:\\Users\\Landon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Landon\\source\\repos\\CardGameProj\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/bkayigamba2@unl.edu/.nuget/NuGet/NuGet.Config"
+>>>>>>> main
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -40,13 +57,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.AspNetCore.SpaProxy": {
               "target": "Package",
               "version": "[6.0.13, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.15, )"
+              "version": "[7.0.5, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -57,6 +78,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.13, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
             }
           },
           "imports": [
@@ -78,7 +103,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+>>>>>>> main
         }
       }
     }
