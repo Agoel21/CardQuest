@@ -7,6 +7,7 @@ using static CSCE361CardGames.Controllers.CardPileController;
 using static CSCE361CardGames.Models.PlayerModel;
 using static CSCE361CardGames.Models.CardModel;
 using static CSCE361CardGames.Models.DeckModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CSCE361CardGames.Controllers
 {
