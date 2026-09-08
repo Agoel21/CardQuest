@@ -1,3 +1,5 @@
+<img src="public/favicon.svg" width="72" alt="" align="left" hspace="12" />
+
 # CardQuest
 
 Five card games that run entirely in the browser. No install, no account, no
@@ -35,13 +37,26 @@ npm run dev
 Then open the URL it prints. Other commands:
 
 ```bash
-npm test        # 118 tests
+npm test        # 120 tests
 npm run build   # production build into dist/
 npm run typecheck
 ```
 
 Requires Node 18 or newer. There is nothing else to configure: no environment
 variables, no database, no API keys.
+
+## Playing
+
+Every game can be played three ways, and all three stay in sync:
+
+- **Drag** a card where you want it. Legal destinations highlight as you drag,
+  and an illegal drop returns the card to where it came from.
+- **Click** a card to pick it up, then click where it should go.
+- **Keyboard**: tab to a card and press Enter. Nothing is drag-only, so the
+  games are fully playable without a pointer.
+
+Each game page carries its own rules and instructions, so you do not need to
+know a game before opening it.
 
 ## How multiplayer works
 

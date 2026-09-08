@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="CardQuest">
+  <!-- Dark tile so the mark holds up against both light and dark browser chrome. -->
+  <rect width="32" height="32" rx="7" fill="#12312f"/>
+  <!-- Two overlapping cards, fanned. Reads as "cards" even at 16px, where a
+       suit pip alone would turn to mush. -->
+  <g transform="translate(16 16.5)">
+    <rect x="-9.5" y="-9" width="12" height="17" rx="2.2"
+          fill="#f2f6f4" opacity="0.9" transform="rotate(-14)"/>
+    <rect x="-2.5" y="-9" width="12" height="17" rx="2.2"
+          fill="#f0a850" transform="rotate(10)"/>
+    <!-- A spade on the front card, simplified to survive small sizes. -->
+    <path d="M3.6 -3.4c1.9 1.7 3.1 2.7 3.1 4.1a1.85 1.85 0 0 1-2.9 1.5c.1.9.5 1.5 1 2h-2.4c.5-.5.9-1.1 1-2a1.85 1.85 0 0 1-2.9-1.5c0-1.4 1.2-2.4 3.1-4.1z"
+          fill="#2a1a05" transform="rotate(10)"/>
+  </g>
+</svg>
