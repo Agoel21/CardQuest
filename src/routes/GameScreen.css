@@ -88,6 +88,13 @@
   background: color-mix(in srgb, var(--positive) 18%, transparent);
   border: 1px solid color-mix(in srgb, var(--positive) 45%, transparent);
   color: var(--text-primary);
+  animation: win-beat 520ms var(--ease) both;
+}
+
+@keyframes win-beat {
+  0% { transform: scale(0.96); opacity: 0.4; }
+  58% { transform: scale(1.018); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .banner--stuck {
@@ -386,4 +393,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.gofish__stock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
 }

@@ -16,12 +16,19 @@ import { HeartsBoard } from '../games/hearts/board';
 import { Difficulty } from '../ai/strategy';
 import { HEARTS_STRATEGIES, HeartsView } from '../ai/heartsStrategy';
 import { PlayingCard } from '../ui/PlayingCard';
+import { cardMotionId, useCardMotion } from '../ui/useCardMotion';
+import { useCardDrag } from '../ui/useCardDrag';
 import './GameScreen.css';
 import './Hearts.css';
 
 const AI_TURN_DELAY_MS = 700;
 
 const SEAT_NAMES = ['You', 'West', 'North', 'East'];
+
+interface CollectedTrick {
+  entries: { playerId: string; card: Card }[];
+  winnerId: string;
+}
 
 function newBoard(): HeartsBoard {
   const players = SEAT_NAMES.map((name, i) => new Player(`seat-${i}`, name));
@@ -47,14 +54,17 @@ function ScoreBoard({ board }: { board: HeartsBoard }) {
 export function HeartsScreen() {
   const boardRef = useRef<HeartsBoard | null>(null);
   const rngRef = useRef(makeRng(randomSeed()));
-  const [, setVersion] = useState(0);
+  const [version, setVersion] = useState(0);
   const [difficulty, setDifficulty] = useState<Difficulty>('medium');
   const [message, setMessage] = useState('Pick 3 cards to pass.');
   const [selectedPass, setSelectedPass] = useState<Card[]>([]);
+  const [collectedTrick, setCollectedTrick] = useState<CollectedTrick | null>(null);
   const aiPassHandledForHand = useRef<number>(-1);
+  const collectionTimers = useRef<number[]>([]);
 
   if (!boardRef.current) boardRef.current = newBoard();
   const board = boardRef.current;
+  const motion = useCardMotion(version);
 
   const refresh = useCallback(() => setVersion((v) => v + 1), []);
 
@@ -63,12 +73,13 @@ export function HeartsScreen() {
   const winner = board.winner;
 
   const newGame = useCallback(() => {
+    motion.queueDeal();
     boardRef.current = newBoard();
     aiPassHandledForHand.current = -1;
     setSelectedPass([]);
     setMessage('Pick 3 cards to pass.');
     refresh();
-  }, [refresh]);
+  }, [refresh, motion]);
 
   const toggleSelected = useCallback((card: Card) => {
     setSelectedPass((prev) => {
@@ -80,6 +91,7 @@ export function HeartsScreen() {
 
   const confirmPass = useCallback(() => {
     if (selectedPass.length !== 3) return;
+    motion.capture();
     board.selectPassCards(you.id, selectedPass);
     setSelectedPass([]);
     if (board.phase === 'passing') {
@@ -87,7 +99,7 @@ export function HeartsScreen() {
     }
     setMessage(board.phase === 'playing' ? 'Cards passed. Play begins.' : 'Waiting on the table.');
     refresh();
-  }, [board, selectedPass, you.id, refresh]);
+  }, [board, selectedPass, you.id, refresh, motion]);
 
   const playCard = useCallback(
     (card: Card) => {
@@ -97,25 +109,44 @@ export function HeartsScreen() {
         setMessage('That card cannot be played right now.');
         return;
       }
+      motion.capture();
       board.playCard(card);
       if (board.currentTrick.length === 4) {
-        board.resolveTrick();
+        const entries = [...board.currentTrick];
+        const winnerId = board.resolveTrick();
+        if (winnerId) {
+          setCollectedTrick({ entries, winnerId });
+          const startTimer = window.setTimeout(() => {
+            const target = motion.rootRef.current?.querySelector<HTMLElement>(
+              `[data-hearts-seat="${winnerId}"]`,
+            );
+            for (const entry of entries) motion.animateLeaving(cardMotionId(entry.card), target);
+            const finishTimer = window.setTimeout(() => setCollectedTrick(null), 330);
+            collectionTimers.current.push(finishTimer);
+          }, 0);
+          collectionTimers.current.push(startTimer);
+        }
         setMessage(board.phase === 'playing' ? 'Trick taken. Next lead.' : 'Hand complete.');
       } else {
         setMessage('Waiting on the table.');
       }
       refresh();
     },
-    [board, isYourTurn, winner, you, refresh],
+    [board, isYourTurn, winner, you, refresh, motion],
   );
 
   const dealNextHand = useCallback(() => {
+    motion.queueDeal();
     board.startHand();
     aiPassHandledForHand.current = -1;
     setSelectedPass([]);
     setMessage(board.phase === 'passing' ? 'Pick 3 cards to pass.' : 'Your lead.');
     refresh();
-  }, [board, refresh]);
+  }, [board, refresh, motion]);
+
+  useEffect(() => () => {
+    for (const timer of collectionTimers.current) window.clearTimeout(timer);
+  }, []);
 
   // AI seats submit their passes as soon as a new passing phase opens, so
   // the human only ever waits on themselves.
@@ -149,9 +180,23 @@ export function HeartsScreen() {
         heartsBroken: board.heartsBroken,
       };
       const choice = strategy.chooseCard(legal, view, rngRef.current);
+      motion.capture();
       board.playCard(choice);
       if (board.currentTrick.length === 4) {
-        board.resolveTrick();
+        const entries = [...board.currentTrick];
+        const winnerId = board.resolveTrick();
+        if (winnerId) {
+          setCollectedTrick({ entries, winnerId });
+          const startTimer = window.setTimeout(() => {
+            const target = motion.rootRef.current?.querySelector<HTMLElement>(
+              `[data-hearts-seat="${winnerId}"]`,
+            );
+            for (const entry of entries) motion.animateLeaving(cardMotionId(entry.card), target);
+            const finishTimer = window.setTimeout(() => setCollectedTrick(null), 330);
+            collectionTimers.current.push(finishTimer);
+          }, 0);
+          collectionTimers.current.push(startTimer);
+        }
         setMessage(board.phase === 'playing' ? 'Trick taken.' : 'Hand complete.');
       } else {
         setMessage(`${player.name} played. ${board.currentPlayer === you ? 'Your turn.' : 'Waiting.'}`);
@@ -163,10 +208,17 @@ export function HeartsScreen() {
   });
 
   const yourHand = you.hand.toArray();
-  const leaderOfTrick = board.currentTrick[0]?.playerId;
+  const visibleTrick = collectedTrick?.entries ?? board.currentTrick;
+  const leaderOfTrick = visibleTrick[0]?.playerId;
+  const drag = useCardDrag<Card>(useCallback((card, target) => {
+    if (target !== 'hearts-trick' || !isYourTurn || winner || board.phase !== 'playing') return false;
+    if (!board.legalPlaysFor(you).some((legal) => sameCard(legal, card))) return false;
+    playCard(card);
+    return true;
+  }, [board, isYourTurn, winner, you, playCard]));
 
   return (
-    <div className="game">
+    <div className="game" ref={motion.rootRef}>
       <div className="game__header">
         <div>
           <h1 className="game__title">Hearts</h1>
@@ -205,18 +257,22 @@ export function HeartsScreen() {
       <ScoreBoard board={board} />
 
       <section className="hearts__opponents" aria-label="Other players">
-        {board.players.map((p, i) => {
+        {board.players.map((p) => {
           if (p === you) return null;
           return (
-            <div className="hearts__opponent" key={p.id}>
+            <div
+              className={`hearts__opponent${board.currentPlayer === p && !winner ? ' is-active' : ''}`}
+              data-hearts-seat={p.id}
+              key={p.id}
+            >
               <span className="hearts__seat-label">
                 {p.name}
                 {board.currentPlayer === p && !winner ? ' (playing)' : ''}
               </span>
               <span className="hearts__opponent-count">{p.handSize} cards</span>
               <div className="hearts__opponent-cards">
-                {Array.from({ length: p.handSize }, (_, j) => (
-                  <PlayingCard key={`${i}-${j}`} faceDown />
+                {p.hand.toArray().map((card) => (
+                  <PlayingCard key={cardMotionId(card)} card={card} faceDown motionId={cardMotionId(card)} />
                 ))}
               </div>
             </div>
@@ -224,15 +280,15 @@ export function HeartsScreen() {
         })}
       </section>
 
-      <section className="hearts__trick" aria-label="Current trick">
-        {board.currentTrick.length === 0 ? (
+      <section className="hearts__trick" data-card-motion-source data-drop-target="hearts-trick" aria-label="Current trick">
+        {visibleTrick.length === 0 ? (
           <p className="game__hint">No cards on the table yet.</p>
         ) : (
-          board.currentTrick.map((entry) => {
+          visibleTrick.map((entry) => {
             const player = board.players.find((p) => p.id === entry.playerId);
             return (
               <div className="hearts__trick-card" key={entry.playerId}>
-                <PlayingCard card={entry.card} />
+                <PlayingCard key={cardMotionId(entry.card)} card={entry.card} motionId={cardMotionId(entry.card)} flipIn />
                 <span className="hearts__trick-label">
                   {player?.name ?? entry.playerId}
                   {entry.playerId === leaderOfTrick ? ' (led)' : ''}
@@ -280,7 +336,11 @@ export function HeartsScreen() {
         </section>
       )}
 
-      <section className="hearts__hand" aria-label="Your hand">
+      <section
+        className={`hearts__hand${isYourTurn && board.phase === 'playing' && !winner ? ' is-active' : ''}`}
+        data-hearts-seat={you.id}
+        aria-label="Your hand"
+      >
         <span className="hearts__seat-label">
           Your hand{isYourTurn && board.phase === 'playing' && !winner ? ' (your turn)' : ''}
         </span>
@@ -292,13 +352,16 @@ export function HeartsScreen() {
               <PlayingCard
                 key={`${card.suit}-${card.rank}`}
                 card={card}
+                motionId={cardMotionId(card)}
                 playable={
                   board.phase === 'playing'
                   && isYourTurn
                   && !winner
                   && board.legalPlaysFor(you).some((c) => sameCard(c, card))
                 }
-                onClick={() => playCard(card)}
+                dragging={!!drag.data && sameCard(drag.data, card)}
+                onClick={() => { if (!drag.consumeClick()) playCard(card); }}
+                onPointerDown={board.phase === 'playing' ? (event) => drag.start(card, event) : undefined}
               />
             ))
           )}

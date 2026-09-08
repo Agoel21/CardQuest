@@ -45,6 +45,17 @@
   min-width: 0;
 }
 
+.hearts__opponent.is-active,
+.hearts__hand.is-active {
+  border-radius: var(--radius-surface);
+  animation: seat-pulse 1.5s var(--ease) infinite;
+}
+
+@keyframes seat-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 1px transparent; }
+  50% { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 65%, transparent); }
+}
+
 .hearts__seat-label {
   display: block;
   color: var(--text-muted);
