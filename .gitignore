@@ -234,3 +234,13 @@ _Pvt_Extensions
 
 .obj/Debug/net6.0
 /Controllers/SolitaireController.cs
+
+# --- Added during revival: these were committed and broke clean-clone builds ---
+.DS_Store
+**/.DS_Store
+obj/
+bin/
+node_modules/
+dist/
+node_modules/
+dist/

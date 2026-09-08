@@ -1,0 +1,84 @@
+/**
+ * Design tokens.
+ *
+ * One theme for the whole app, one accent, one radius scale.
+ * Dark is the default because a card table reads better against a dark
+ * surround; light mode is a full first-class variant, not an afterthought.
+ *
+ * Deliberately NOT casino-green-and-gold: that is the default reach for card
+ * games and makes every one of them look the same. This is a cool slate-teal
+ * table with a single warm amber accent for anything interactive.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --surface-base: #0b1a1c;
+  --surface-table: #12312f;
+  --surface-raised: #16403c;
+  --surface-slot: rgba(255, 255, 255, 0.05);
+  --surface-overlay: rgba(8, 20, 21, 0.82);
+
+  /* Ink */
+  --text-primary: #f2f6f4;
+  --text-secondary: #a9c0bb;
+  --text-muted: #7b948f;
+
+  /* One accent, used everywhere something is interactive. */
+  --accent: #f0a850;
+  --accent-strong: #f7bd72;
+  --accent-ink: #2a1a05;
+
+  /* Semantic state */
+  --positive: #5fbf94;
+  --negative: #e2705f;
+
+  /* Lines */
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.2);
+
+  /* One radius scale: interactive is pill, surfaces are 14px, cards are 9px. */
+  --radius-card: 9px;
+  --radius-surface: 14px;
+  --radius-pill: 999px;
+
+  /* Shadows are tinted to the table, never pure black. */
+  --shadow-card: 0 2px 6px rgba(4, 14, 15, 0.5);
+  --shadow-lift: 0 12px 28px rgba(4, 14, 15, 0.55);
+
+  --card-width: clamp(58px, 8.2vw, 92px);
+  --card-ratio: 234 / 333;
+
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --surface-base: #eef2ee;
+  --surface-table: #d9e5e0;
+  --surface-raised: #ffffff;
+  --surface-slot: rgba(18, 49, 47, 0.07);
+  --surface-overlay: rgba(240, 245, 242, 0.86);
+
+  --text-primary: #10201f;
+  --text-secondary: #3f5d58;
+  --text-muted: #64807a;
+
+  --accent: #b56514;
+  --accent-strong: #91500d;
+  --accent-ink: #fff6ea;
+
+  --positive: #1d7a52;
+  --negative: #a63823;
+
+  --line: rgba(16, 32, 31, 0.14);
+  --line-strong: rgba(16, 32, 31, 0.26);
+
+  --shadow-card: 0 2px 6px rgba(16, 32, 31, 0.18);
+  --shadow-lift: 0 12px 28px rgba(16, 32, 31, 0.2);
+}

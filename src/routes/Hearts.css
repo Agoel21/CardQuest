@@ -1,0 +1,121 @@
+/* ---- Hearts table ---- */
+
+.hearts__scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 3vw, 20px);
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-surface);
+  background: var(--surface-slot);
+  list-style: none;
+}
+
+.hearts__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 64px;
+}
+
+.hearts__score-name {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+}
+
+.hearts__score-value {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.hearts__opponents {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 3vw, 24px);
+}
+
+.hearts__opponent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.hearts__seat-label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.hearts__opponent-count {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+/*
+ * The opponents' hands carry no information beyond their size, so they are
+ * rendered small and tightly overlapped. At full size, three 13-card fans of
+ * card backs dominate the table and push the actual trick off screen.
+ */
+.hearts__opponent-cards {
+  display: flex;
+  --card-width: clamp(26px, 3.4vw, 38px);
+}
+
+.hearts__opponent-cards > .playing-card + .playing-card {
+  margin-left: calc(var(--card-width) * -0.74);
+}
+
+@media (max-width: 720px) {
+  .hearts__opponents { grid-template-columns: 1fr; }
+}
+
+.hearts__trick {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(16px, 4vw, 32px);
+  padding: clamp(18px, 4vw, 32px);
+  min-height: calc(var(--card-width) / (234 / 333) + 30px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-surface);
+  background: var(--surface-slot);
+}
+
+.hearts__trick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.hearts__trick-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.hearts__hand-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.hearts__pass {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hearts__hand-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: calc(var(--card-width) / (234 / 333));
+}

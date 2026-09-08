@@ -1,6 +1,30 @@
 {
+  "name": "cardquest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser card games with an AI opponent and peer-to-peer multiplayer.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "react-drag-and-drop": "^3.0.0",
-    "react-dropzone": "^14.2.3"
+    "peerjs": "^1.5.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "^5.6.2",
+    "vite": "^7.3.6",
+    "vitest": "^3.2.7"
   }
 }
