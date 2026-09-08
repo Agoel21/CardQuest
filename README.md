@@ -146,7 +146,10 @@ during the port and are fixed here:
   without ever collecting the suit nomination, so the wild silently lost its
   effect.
 
-The original C# is preserved in git history.
+The original C# has been removed from the working tree now that the port is complete and
+covered by tests. It is preserved in full in git history: `git log --all -- Controllers/`
+shows it, and `git show 0c17245^:Controllers/Crazy8sController.cs` (or any commit before
+the cleanup) will print any of the original files.
 
 ## Limitations
 
