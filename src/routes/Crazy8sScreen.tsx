@@ -262,6 +262,16 @@ export function Crazy8sScreen() {
         Highlighted cards are legal plays. With nothing playable, draw from the stock.
         {yourHand.some((c) => c.rank === Rank.Eight) ? ' An eight can always be played.' : ''}
       </p>
+
+      <section className="game__how-to" aria-labelledby="crazy-eights-how-to">
+        <h2 id="crazy-eights-how-to">How to play</h2>
+        <ol>
+          <li>Play a card that matches the table card's rank or suit.</li>
+          <li>Play an eight at any time, then choose the suit that continues play.</li>
+          <li>Click or drag a highlighted card onto the table. Draw when none is available.</li>
+          <li>Empty your hand before the computer does to win.</li>
+        </ol>
+      </section>
     </div>
   );
 }

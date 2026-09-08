@@ -294,6 +294,16 @@ export function KlondikeScreen() {
         Click a card to pick it up, then click where it should go. Double-click sends
         a card straight to its foundation.
       </p>
+
+      <section className="game__how-to" aria-labelledby="klondike-how-to">
+        <h2 id="klondike-how-to">How to play</h2>
+        <ol>
+          <li>Build each foundation from ace through king in the same suit.</li>
+          <li>Stack tableau cards in descending order with alternating colours.</li>
+          <li>Click two places to move a card or run, or drag it to a highlighted target.</li>
+          <li>Turn the stock to find new cards and recycle the waste when it runs out.</li>
+        </ol>
+      </section>
     </div>
   );
 }

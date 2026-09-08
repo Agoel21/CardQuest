@@ -378,6 +378,16 @@ export function FreeCellScreen() {
         Click a card to pick it up, then click where it should go. Double-click sends a
         card to its foundation, another column, or a free cell.
       </p>
+
+      <section className="game__how-to" aria-labelledby="freecell-how-to">
+        <h2 id="freecell-how-to">How to play</h2>
+        <ol>
+          <li>Move every card to its matching foundation, ace through king.</li>
+          <li>Build tableau runs down by rank with alternating colours.</li>
+          <li>Use free cells as temporary parking spaces and empty columns to move longer runs.</li>
+          <li>Click to place a selected card or run, or drag it to a highlighted legal destination.</li>
+        </ol>
+      </section>
     </div>
   );
 }

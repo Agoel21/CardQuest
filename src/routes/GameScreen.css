@@ -45,6 +45,30 @@
   max-width: 62ch;
 }
 
+.game__how-to {
+  display: grid;
+  gap: 8px;
+  max-width: 68ch;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-surface);
+  background: var(--surface-slot);
+}
+
+.game__how-to h2 {
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.game__how-to ol {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
 .btn {
   padding: 9px 18px;
   border: 1px solid var(--line-strong);
