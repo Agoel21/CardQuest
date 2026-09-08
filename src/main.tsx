@@ -8,6 +8,7 @@ import { KlondikeScreen } from './routes/KlondikeScreen';
 import { Crazy8sScreen } from './routes/Crazy8sScreen';
 import { FreeCellScreen } from './routes/FreeCellScreen';
 import { HeartsScreen } from './routes/HeartsScreen';
+import { MultiplayerScreen } from './routes/MultiplayerScreen';
 
 /**
  * Hash routing, deliberately: the site is served from GitHub Pages, which has
@@ -24,6 +25,7 @@ const router = createHashRouter([
       { path: 'crazy-8s', element: <Crazy8sScreen /> },
       { path: 'freecell', element: <FreeCellScreen /> },
       { path: 'hearts', element: <HeartsScreen /> },
+      { path: 'play-a-friend', element: <MultiplayerScreen /> },
     ],
   },
 ]);
