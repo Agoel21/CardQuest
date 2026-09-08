@@ -1,0 +1,77 @@
+.playing-card {
+  position: relative;
+  display: block;
+  width: var(--card-width);
+  aspect-ratio: var(--card-ratio);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-card);
+  background: transparent;
+  box-shadow: var(--shadow-card);
+  transition: transform 180ms var(--ease), box-shadow 180ms var(--ease);
+}
+
+.playing-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-card);
+  object-fit: cover;
+  user-select: none;
+}
+
+.playing-card.is-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.playing-card.is-interactive:active {
+  transform: translateY(-1px) scale(0.985);
+}
+
+/* Selection and playability read as a ring, never as a colour wash, so the
+   card face itself is never obscured. */
+.playing-card.is-selected {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lift), 0 0 0 3px var(--accent);
+}
+
+.playing-card.is-playable::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-card);
+  box-shadow: inset 0 0 0 2px var(--accent);
+  pointer-events: none;
+}
+
+.card-slot {
+  display: grid;
+  place-items: center;
+  width: var(--card-width);
+  aspect-ratio: var(--card-ratio);
+  padding: 0;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-card);
+  background: var(--surface-slot);
+  color: var(--text-muted);
+  transition: border-color 160ms var(--ease), background 160ms var(--ease);
+}
+
+button.card-slot:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.card-slot__label {
+  font-size: 1.1rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 0 4px;
+  /* Never let a slot label spill past the slot it belongs to. */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

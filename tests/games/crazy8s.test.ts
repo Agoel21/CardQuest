@@ -96,6 +96,22 @@ describe('Crazy8sBoard', () => {
     expect(board.stock.size).not.toBe(stockBefore);
   });
 
+  // The stock must come back SHUFFLED. Tipping the discard pile back over
+  // unchanged would make the whole remaining deck predictable.
+  it('reshuffles the discard pile when recycling it', () => {
+    const board = new Crazy8sBoard(5);
+    board.addPlayer(player('p1'));
+    board.generate();
+    const ordered = Deck.full().toArray();
+    board.stock.clear();
+    board.discard.setCards(ordered);
+    board.drawFromStock();
+    const rebuilt = board.stock.toArray();
+    expect(rebuilt.length).toBe(51);
+    // Astronomically unlikely to match the input order unless we never shuffled.
+    expect(rebuilt).not.toEqual(ordered.slice(0, 51));
+  });
+
   it('recycles the discard pile when the stock runs dry', () => {
     const board = new Crazy8sBoard(42);
     const p = player('test_player');

@@ -74,7 +74,16 @@ export class SolitaireBoard {
     return false;
   }
 
-  /** Turns one card from the stock to the waste, recycling the waste if empty. */
+  /**
+   * Turns one card from the stock to the waste, recycling the waste when the
+   * stock is empty.
+   *
+   * The recycled waste is deliberately NOT reshuffled. Standard Klondike
+   * turns the waste back over as a block, so the same cards reappear in the
+   * same order; that predictability is part of the game and is what makes a
+   * deal winnable or not. The original C# shuffled here, which quietly made
+   * every deal non-deterministic and unwinnable-by-analysis.
+   */
   flipFromStock(): void {
     const face = this.waste.active.at(0);
     if (face) {

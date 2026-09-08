@@ -6,7 +6,7 @@
  * the suit that the next player must follow.
  */
 import {
-  Card, CardPile, Deck, makeRng, Player, randomSeed, Rank, Rng, Suit,
+  Card, CardPile, Deck, makeRng, Player, randomSeed, Rank, Rng, shuffleInPlace, Suit,
 } from '../../engine';
 
 export const MAX_PLAYERS = 6;
@@ -24,8 +24,16 @@ export class Crazy8sBoard {
   /** Set when an eight has been played and its player must nominate a suit. */
   awaitingSuitChoice = false;
 
+  /**
+   * Held on the board rather than passed in, so that recycling the discard
+   * pile mid-game stays deterministic from the seed. Multiplayer depends on
+   * both peers reaching the same shuffled stock.
+   */
+  private rng: Rng;
+
   constructor(seed: number = randomSeed()) {
     this.seed = seed;
+    this.rng = makeRng(seed);
   }
 
   get currentPlayer(): Player | undefined {
@@ -55,6 +63,7 @@ export class Crazy8sBoard {
    * demand a suit nomination before anyone has had a turn.
    */
   generate(rng: Rng = makeRng(this.seed)): void {
+    this.rng = rng;
     const deck = Deck.shuffled(rng);
     this.distribute(deck);
     this.stock.setCards(deck.toArray());
@@ -120,8 +129,14 @@ export class Crazy8sBoard {
   }
 
   /**
-   * Draws one card for the current player. When the stock is exhausted the
-   * discard pile is recycled, leaving the active card on the table.
+   * Draws one card for the current player, recycling the discard pile when
+   * the stock is exhausted.
+   *
+   * Deliberate deviation from the original C#: `DrawFromStockPile` recycled
+   * the pile and then passed the turn WITHOUT dealing anyone a card, so a
+   * player unlucky enough to empty the stock simply lost their draw. Under
+   * the standard rules the stock is rebuilt and the draw proceeds, which is
+   * what this does.
    */
   drawFromStock(): Card | undefined {
     if (this.stock.isEmpty) this.recycleDiscard();
@@ -130,9 +145,19 @@ export class Crazy8sBoard {
     return card;
   }
 
+  /**
+   * Rebuilds the stock from the discard pile.
+   *
+   * The pile is reshuffled, not just tipped back over. Without this the
+   * "new" stock is the old one in a fixed order, so from the first recycle
+   * onwards the deck is fully predictable to anyone who tracked the
+   * discards, and every subsequent cycle repeats the same two orderings.
+   */
   private recycleDiscard(): void {
     if (this.discard.isEmpty) return;
-    this.stock.addMany(this.discard.toArray());
+    const recycled = this.discard.toArray();
+    shuffleInPlace(recycled, this.rng);
+    this.stock.addMany(recycled);
     this.discard.clear();
   }
 
