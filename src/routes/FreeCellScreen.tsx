@@ -12,6 +12,8 @@ import { useCallback, useState } from 'react';
 import { Card, colorOf, randomSeed, sameCard, Suit, suitName } from '../engine';
 import { FreeCellBoard } from '../games/freecell/board';
 import { CardSlot, PlayingCard } from '../ui/PlayingCard';
+import { cardMotionId, useCardMotion } from '../ui/useCardMotion';
+import { useCardDrag } from '../ui/useCardDrag';
 import './GameScreen.css';
 
 type Selection =
@@ -44,15 +46,17 @@ export function FreeCellScreen() {
   const [board, setBoard] = useState<FreeCellBoard>(() => makeBoard());
   const [selection, setSelection] = useState<Selection | null>(null);
   const [moves, setMoves] = useState(0);
-  const [, setVersion] = useState(0);
+  const [version, setVersion] = useState(0);
+  const motion = useCardMotion(version);
 
   const refresh = useCallback(() => setVersion((v) => v + 1), []);
 
   const newGame = useCallback(() => {
+    motion.queueDeal();
     setBoard(makeBoard());
     setSelection(null);
     setMoves(0);
-  }, []);
+  }, [motion]);
 
   const runFrom = useCallback((columnIndex: number, card: Card): Card[] => {
     const column = board.columns[columnIndex];
@@ -78,12 +82,14 @@ export function FreeCellScreen() {
 
       if (selection) {
         if (selection.kind === 'freeCell') {
+          motion.capture();
           if (board.moveFromFreeCell(selection.cellIndex, columnIndex)) {
             commit();
             return;
           }
         } else if (selection.columnIndex !== columnIndex) {
           const run = runFrom(selection.columnIndex, selection.card);
+          motion.capture();
           if (board.moveToColumn(run, selection.columnIndex, columnIndex)) {
             commit();
             return;
@@ -93,7 +99,7 @@ export function FreeCellScreen() {
 
       setSelection(clicked);
     },
-    [selection, board, runFrom, commit],
+    [selection, board, runFrom, commit, motion],
   );
 
   const handleFreeCellClick = useCallback(
@@ -109,6 +115,7 @@ export function FreeCellScreen() {
       if (!card) {
         if (selection && selection.kind === 'column') {
           const run = runFrom(selection.columnIndex, selection.card);
+          motion.capture();
           if (run.length === 1 && board.moveToFreeCell(selection.card, selection.columnIndex)) {
             commit();
           }
@@ -118,7 +125,7 @@ export function FreeCellScreen() {
 
       setSelection({ kind: 'freeCell', cellIndex, card });
     },
-    [board, selection, runFrom, commit],
+    [board, selection, runFrom, commit, motion],
   );
 
   const handleFoundationClick = useCallback(
@@ -126,33 +133,37 @@ export function FreeCellScreen() {
       if (!selection) return;
       if (selection.kind === 'freeCell') {
         const cell = board.freeCells[selection.cellIndex];
+        motion.capture();
         if (cell && cell.suit === suit && board.moveFreeCellToFoundation(selection.cellIndex)) {
           commit();
         }
         return;
       }
+      motion.capture();
       if (board.moveToFoundation(selection.card, selection.columnIndex)) {
         commit();
       }
     },
-    [board, selection, commit],
+    [board, selection, commit, motion],
   );
 
   const handleEmptyColumnClick = useCallback(
     (columnIndex: number) => {
       if (!selection) return;
       if (selection.kind === 'freeCell') {
+        motion.capture();
         if (board.moveFromFreeCell(selection.cellIndex, columnIndex)) {
           commit();
         }
         return;
       }
       const run = runFrom(selection.columnIndex, selection.card);
+      motion.capture();
       if (board.moveToColumn(run, selection.columnIndex, columnIndex)) {
         commit();
       }
     },
-    [board, selection, runFrom, commit],
+    [board, selection, runFrom, commit, motion],
   );
 
   /**
@@ -161,6 +172,7 @@ export function FreeCellScreen() {
    */
   const handleAutoMove = useCallback(
     (columnIndex: number, card: Card) => {
+      motion.capture();
       if (board.moveToFoundation(card, columnIndex)) {
         setSelection(null);
         setMoves((m) => m + 1);
@@ -185,13 +197,46 @@ export function FreeCellScreen() {
         refresh();
       }
     },
-    [board, runFrom, refresh],
+    [board, runFrom, refresh, motion],
   );
 
   const won = board.isWon;
+  const drag = useCardDrag<Selection>(useCallback((dragged, target) => {
+    const run = dragged.kind === 'column' ? runFrom(dragged.columnIndex, dragged.card) : [dragged.card];
+    if (run.length === 0) return false;
+    const commitDrag = () => {
+      setSelection(null);
+      setMoves((moves) => moves + 1);
+      refresh();
+    };
+    motion.capture();
+    if (target.startsWith('foundation-')) {
+      const suit = Number(target.slice('foundation-'.length)) as Suit;
+      if (dragged.kind === 'freeCell') {
+        if (dragged.card.suit !== suit || !board.moveFreeCellToFoundation(dragged.cellIndex)) return false;
+      } else if (dragged.card.suit !== suit || !board.moveToFoundation(dragged.card, dragged.columnIndex)) return false;
+      commitDrag();
+      return true;
+    }
+    if (target.startsWith('freecell-')) {
+      if (run.length !== 1 || dragged.kind !== 'column') return false;
+      if (!board.moveToFreeCell(dragged.card, dragged.columnIndex)) return false;
+      commitDrag();
+      return true;
+    }
+    if (!target.startsWith('column-')) return false;
+    const destination = Number(target.slice('column-'.length));
+    if (dragged.kind === 'freeCell') {
+      if (!board.moveFromFreeCell(dragged.cellIndex, destination)) return false;
+    } else {
+      if (destination === dragged.columnIndex || !board.moveToColumn(run, dragged.columnIndex, destination)) return false;
+    }
+    commitDrag();
+    return true;
+  }, [board, motion, refresh, runFrom]));
 
   return (
-    <div className="game">
+    <div className="game" ref={motion.rootRef}>
       <div className="game__header">
         <div>
           <h1 className="game__title">FreeCell</h1>
@@ -216,23 +261,29 @@ export function FreeCellScreen() {
         </p>
       )}
 
-      <section className="freecell__top" aria-label="Free cells and foundations">
+      <section className="freecell__top" data-card-motion-source aria-label="Free cells and foundations">
         <div className="freecell__cells">
           {board.freeCells.map((card, cellIndex) =>
             card ? (
               <PlayingCard
                 key={cellIndex}
                 card={card}
+                motionId={cardMotionId(card)}
+                dropTarget={`freecell-${cellIndex}`}
+                dragging={!!drag.data && drag.data.kind === 'freeCell' && drag.data.cellIndex === cellIndex}
                 selected={
                   !!selection && selection.kind === 'freeCell' && selection.cellIndex === cellIndex
                 }
-                onClick={() => handleFreeCellClick(cellIndex)}
+                onClick={() => { if (!drag.consumeClick()) handleFreeCellClick(cellIndex); }}
+                onPointerDown={(event) => drag.start({ kind: 'freeCell', cellIndex, card }, event)}
               />
             ) : (
               <CardSlot
                 key={cellIndex}
                 label=""
                 srLabel="Empty free cell"
+                dropTarget={`freecell-${cellIndex}`}
+                playable={!!drag.data && drag.data.kind === 'column' && runFrom(drag.data.columnIndex, drag.data.card).length === 1}
                 onClick={() => handleFreeCellClick(cellIndex)}
               />
             ),
@@ -246,19 +297,23 @@ export function FreeCellScreen() {
               <PlayingCard
                 key={foundation.suit}
                 card={top}
+                motionId={cardMotionId(top)}
+                dropTarget={`foundation-${foundation.suit}`}
                 playable={
                   !!selection &&
                   (selection.kind === 'freeCell'
                     ? board.freeCells[selection.cellIndex]?.suit === foundation.suit
                     : foundation.canAccept(selection.card))
                 }
-                onClick={() => handleFoundationClick(foundation.suit)}
+                onClick={() => { if (!drag.consumeClick()) handleFoundationClick(foundation.suit); }}
               />
             ) : (
               <CardSlot
                 key={foundation.suit}
                 label={SUIT_GLYPH[foundation.suit]}
                 srLabel={`${suitName(foundation.suit)} foundation`}
+                dropTarget={`foundation-${foundation.suit}`}
+                playable={!!drag.data && drag.data.card.suit === foundation.suit && foundation.canAccept(drag.data.card)}
                 onClick={() => handleFoundationClick(foundation.suit)}
               />
             );
@@ -288,19 +343,30 @@ export function FreeCellScreen() {
         {board.columns.map((column, columnIndex) => (
           <div className="freecell__column" key={columnIndex}>
             {column.isEmpty ? (
-              <CardSlot label="" srLabel="Empty column" onClick={() => handleEmptyColumnClick(columnIndex)} />
+              <CardSlot label="" srLabel="Empty column" dropTarget={`column-${columnIndex}`} playable={!!drag.data && (drag.data.kind === 'freeCell' ? board.canMoveToColumn([drag.data.card], columnIndex) : board.canMoveToColumn(runFrom(drag.data.columnIndex, drag.data.card), columnIndex))} onClick={() => handleEmptyColumnClick(columnIndex)} />
             ) : (
               column.active.toArray().map((card) => (
                 <PlayingCard
                   key={`${card.suit}-${card.rank}`}
                   card={card}
+                  motionId={cardMotionId(card)}
+                  dropTarget={`column-${columnIndex}`}
+                  dragging={!!drag.data && drag.data.kind === 'column' && drag.data.columnIndex === columnIndex && sameCard(drag.data.card, card)}
                   selected={
                     !!selection &&
                     selection.kind === 'column' &&
                     selection.columnIndex === columnIndex &&
                     sameCard(selection.card, card)
                   }
-                  onClick={() => handleColumnCardClick(columnIndex, card)}
+                  playable={
+                    !!drag.data
+                    && (drag.data.kind === 'freeCell'
+                      ? board.canMoveToColumn([drag.data.card], columnIndex)
+                      : drag.data.columnIndex !== columnIndex
+                        && board.canMoveToColumn(runFrom(drag.data.columnIndex, drag.data.card), columnIndex))
+                  }
+                  onClick={() => { if (!drag.consumeClick()) handleColumnCardClick(columnIndex, card); }}
+                  onPointerDown={(event) => drag.start({ kind: 'column', columnIndex, card }, event)}
                 />
               ))
             )}

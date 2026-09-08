@@ -9,6 +9,8 @@ import { Card, makeRng, Player, randomSeed, Rank, Suit, suitName } from '../engi
 import { Crazy8sBoard } from '../games/crazy8s/board';
 import { Difficulty, DIFFICULTY_LABELS, STRATEGIES } from '../ai/strategy';
 import { CardSlot, PlayingCard } from '../ui/PlayingCard';
+import { cardMotionId, useCardMotion } from '../ui/useCardMotion';
+import { useCardDrag } from '../ui/useCardDrag';
 import './GameScreen.css';
 
 const AI_TURN_DELAY_MS = 700;
@@ -31,9 +33,10 @@ function newBoard(): Crazy8sBoard {
 export function Crazy8sScreen() {
   const boardRef = useRef<Crazy8sBoard | null>(null);
   const rngRef = useRef(makeRng(randomSeed()));
-  const [, setVersion] = useState(0);
+  const [version, setVersion] = useState(0);
   const [difficulty, setDifficulty] = useState<Difficulty>('medium');
   const [message, setMessage] = useState('Your turn.');
+  const motion = useCardMotion(version);
 
   if (!boardRef.current) boardRef.current = newBoard();
   const board = boardRef.current;
@@ -46,10 +49,11 @@ export function Crazy8sScreen() {
   const winner = board.winner;
 
   const newGame = useCallback(() => {
+    motion.queueDeal();
     boardRef.current = newBoard();
     setMessage('Your turn.');
     refresh();
-  }, [refresh]);
+  }, [refresh, motion]);
 
   const playCard = useCallback(
     (card: Card) => {
@@ -58,11 +62,12 @@ export function Crazy8sScreen() {
         setMessage('That card does not match the rank or the suit.');
         return;
       }
+      motion.capture();
       board.playCard(card);
       setMessage(board.awaitingSuitChoice ? 'Pick a suit.' : 'Computer is thinking.');
       refresh();
     },
-    [board, isYourTurn, winner, refresh],
+    [board, isYourTurn, winner, refresh, motion],
   );
 
   const chooseSuit = useCallback(
@@ -76,6 +81,7 @@ export function Crazy8sScreen() {
 
   const drawCard = useCallback(() => {
     if (!isYourTurn || winner || board.awaitingSuitChoice) return;
+    motion.capture();
     const drawn = board.drawFromStock();
     if (!drawn) {
       setMessage('Nothing left to draw. Passing.');
@@ -87,7 +93,7 @@ export function Crazy8sScreen() {
       setMessage('You drew a playable card.');
     }
     refresh();
-  }, [board, isYourTurn, winner, refresh]);
+  }, [board, isYourTurn, winner, refresh, motion]);
 
   // The computer's turn, including its suit nomination after an eight.
   useEffect(() => {
@@ -115,9 +121,11 @@ export function Crazy8sScreen() {
       );
 
       if (choice) {
+        motion.capture();
         board.playCard(choice);
         setMessage(board.awaitingSuitChoice ? 'Computer played an eight.' : 'Your turn.');
       } else {
+        motion.capture();
         const drawn = board.drawFromStock();
         if (!drawn || !board.isLegalPlay(drawn)) {
           board.passTurn();
@@ -134,9 +142,19 @@ export function Crazy8sScreen() {
   });
 
   const yourHand = you.hand.toArray();
+  const drag = useCardDrag<Card>(useCallback((card, target) => {
+    if (target !== 'c8-table' || !isYourTurn || winner || board.awaitingSuitChoice || !board.isLegalPlay(card)) {
+      return false;
+    }
+    motion.capture();
+    board.playCard(card);
+    setMessage(board.awaitingSuitChoice ? 'Pick a suit.' : 'Computer is thinking.');
+    refresh();
+    return true;
+  }, [board, isYourTurn, winner, motion, refresh]));
 
   return (
-    <div className="game">
+    <div className="game" ref={motion.rootRef}>
       <div className="game__header">
         <div>
           <h1 className="game__title">Crazy 8s</h1>
@@ -177,26 +195,26 @@ export function Crazy8sScreen() {
       <section className="c8__opponent" aria-label="Computer hand">
         <span className="c8__seat-label">Computer holds {cpu.handSize}</span>
         <div className="c8__opponent-cards">
-          {Array.from({ length: cpu.handSize }, (_, i) => (
-            <PlayingCard key={i} faceDown />
+          {cpu.hand.toArray().map((card) => (
+            <PlayingCard key={cardMotionId(card)} card={card} faceDown motionId={cardMotionId(card)} />
           ))}
         </div>
       </section>
 
       <section className="c8__table" aria-label="Table">
-        <div className="c8__pile">
+        <div className="c8__pile" data-card-motion-source>
           {/* Never nest a clickable card inside a clickable slot: both
               handlers fire on one click and the player draws twice. */}
           {board.stock.isEmpty ? (
             <CardSlot label="Empty" onClick={isYourTurn ? drawCard : undefined} />
           ) : (
-            <PlayingCard faceDown onClick={isYourTurn ? drawCard : undefined} />
+            <PlayingCard card={board.stock.peek()} faceDown motionId={board.stock.peek() ? cardMotionId(board.stock.peek()!) : undefined} onClick={isYourTurn ? drawCard : undefined} />
           )}
           <span className="c8__pile-label">Draw</span>
         </div>
 
         <div className="c8__pile">
-          {board.activeCard ? <PlayingCard card={board.activeCard} /> : <CardSlot label="Table" />}
+          {board.activeCard ? <PlayingCard key={cardMotionId(board.activeCard)} card={board.activeCard} motionId={cardMotionId(board.activeCard)} flipIn dropTarget="c8-table" playable={drag.dragging} /> : <CardSlot label="Table" dropTarget="c8-table" playable={drag.dragging} />}
           <span className="c8__pile-label">
             Suit in play: {board.activeSuit ? (
               <strong>
@@ -229,8 +247,11 @@ export function Crazy8sScreen() {
               <PlayingCard
                 key={`${card.suit}-${card.rank}`}
                 card={card}
+                motionId={cardMotionId(card)}
                 playable={isYourTurn && !winner && board.isLegalPlay(card)}
-                onClick={() => playCard(card)}
+                dragging={!!drag.data && cardMotionId(drag.data) === cardMotionId(card)}
+                onClick={() => { if (!drag.consumeClick()) playCard(card); }}
+                onPointerDown={(event) => drag.start(card, event)}
               />
             ))
           )}

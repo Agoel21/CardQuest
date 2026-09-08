@@ -22,7 +22,12 @@ export interface PlayingCardProps {
   faceDown?: boolean;
   selected?: boolean;
   playable?: boolean;
+  dragging?: boolean;
+  flipIn?: boolean;
+  motionId?: string | undefined;
+  dropTarget?: string | undefined;
   onClick?: (() => void) | undefined;
+  onPointerDown?: ((event: React.PointerEvent<HTMLButtonElement>) => void) | undefined;
 }
 
 export function PlayingCard({
@@ -30,10 +35,15 @@ export function PlayingCard({
   faceDown = false,
   selected = false,
   playable = false,
+  dragging = false,
+  flipIn = false,
+  motionId,
+  dropTarget,
   onClick,
+  onPointerDown,
 }: PlayingCardProps) {
   const showBack = faceDown || !card;
-  const src = showBack ? faceUrl('card_back') : faceUrl(assetName(card));
+  const frontSrc = card ? faceUrl(assetName(card)) : faceUrl('card_back');
   const label = showBack ? 'Face-down card' : cardLabel(card);
 
   const className = [
@@ -41,22 +51,37 @@ export function PlayingCard({
     showBack ? 'is-facedown' : 'is-faceup',
     selected ? 'is-selected' : '',
     playable ? 'is-playable' : '',
-    onClick ? 'is-interactive' : '',
+    dragging ? 'is-dragging' : '',
+    flipIn ? 'is-flip-in' : '',
+    onClick || onPointerDown ? 'is-interactive' : '',
   ]
     .filter(Boolean)
     .join(' ');
 
-  if (!onClick) {
+  if (!onClick && !onPointerDown) {
     return (
-      <div className={className}>
-        <img src={src} alt={label} draggable={false} />
+      <div className={className} data-card-motion-id={motionId} data-drop-target={dropTarget}>
+        <div className="playing-card__flip">
+          <img className="playing-card__face playing-card__face--front" src={frontSrc} alt={label} draggable={false} />
+          <img className="playing-card__face playing-card__face--back" src={faceUrl('card_back')} alt="" draggable={false} />
+        </div>
       </div>
     );
   }
 
   return (
-    <button type="button" className={className} onClick={onClick}>
-      <img src={src} alt="" draggable={false} />
+    <button
+      type="button"
+      className={className}
+      data-card-motion-id={motionId}
+      data-drop-target={dropTarget}
+      onClick={onClick}
+      onPointerDown={onPointerDown}
+    >
+      <div className="playing-card__flip">
+        <img className="playing-card__face playing-card__face--front" src={frontSrc} alt="" draggable={false} />
+        <img className="playing-card__face playing-card__face--back" src={faceUrl('card_back')} alt="" draggable={false} />
+      </div>
       <span className="visually-hidden">{label}</span>
     </button>
   );
@@ -68,6 +93,8 @@ export function CardSlot({
   srLabel,
   onClick,
   children,
+  dropTarget,
+  playable = false,
 }: {
   /** Short visible label. Keep it to a glyph or one word so it fits. */
   label: string;
@@ -75,12 +102,15 @@ export function CardSlot({
   srLabel?: string;
   onClick?: (() => void) | undefined;
   children?: React.ReactNode;
+  dropTarget?: string;
+  playable?: boolean;
 }) {
   const Tag = onClick ? 'button' : 'div';
   return (
     <Tag
-      className="card-slot"
+      className={`card-slot${playable ? ' is-playable' : ''}`}
       onClick={onClick}
+      data-drop-target={dropTarget}
       {...(onClick ? { type: 'button' as const } : {})}
       {...(srLabel ? { 'aria-label': srLabel } : {})}
     >

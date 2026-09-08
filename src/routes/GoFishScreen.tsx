@@ -5,15 +5,20 @@
  * the exchange reads as a conversation rather than the state snapping.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { makeRng, Player, randomSeed, Rank, rankName } from '../engine';
+import { Card, makeRng, Player, randomSeed, Rank, rankName } from '../engine';
 import { GoFishBoard } from '../games/gofish/board';
 import { GO_FISH_STRATEGIES } from '../ai/gofishStrategy';
 import { Difficulty, DIFFICULTY_LABELS } from '../ai/strategy';
 import { PlayingCard } from '../ui/PlayingCard';
+import { cardMotionId, useCardMotion } from '../ui/useCardMotion';
 import './GameScreen.css';
 
 const AI_TURN_DELAY_MS = 900;
 const MAX_LOG = 5;
+
+function bookTarget(root: HTMLDivElement | null): HTMLElement | null {
+  return root?.querySelector<HTMLElement>('[data-book-target]') ?? null;
+}
 
 function newBoard(): GoFishBoard {
   const board = new GoFishBoard(randomSeed());
@@ -28,9 +33,10 @@ export function GoFishScreen() {
   const rngRef = useRef(makeRng(randomSeed()));
   /** Ranks each player has asked for, which is public information. */
   const askedRef = useRef<Map<string, Rank[]>>(new Map());
-  const [, setVersion] = useState(0);
+  const [version, setVersion] = useState(0);
   const [difficulty, setDifficulty] = useState<Difficulty>('hard');
   const [log, setLog] = useState<string[]>(['Your turn. Ask for a rank you hold.']);
+  const motion = useCardMotion(version);
 
   if (!boardRef.current) boardRef.current = newBoard();
   const board = boardRef.current;
@@ -39,24 +45,35 @@ export function GoFishScreen() {
   const note = useCallback((line: string) => {
     setLog((entries) => [line, ...entries].slice(0, MAX_LOG));
   }, []);
+  const animateBooked = useCallback((before: Card[]) => {
+    const after = new Set(board.players.flatMap((player) => player.hand.toArray()).map(cardMotionId));
+    const target = bookTarget(motion.rootRef.current);
+    for (const card of before) {
+      if (!after.has(cardMotionId(card))) motion.animateLeaving(cardMotionId(card), target);
+    }
+  }, [board, motion]);
 
   const you = board.players[0]!;
   const cpu = board.players[1]!;
   const isYourTurn = board.currentPlayer === you;
 
   const newGame = useCallback(() => {
+    motion.queueDeal();
     boardRef.current = newBoard();
     askedRef.current = new Map();
     setLog(['Your turn. Ask for a rank you hold.']);
     refresh();
-  }, [refresh]);
+  }, [refresh, motion]);
 
   const askFor = useCallback(
     (rank: Rank) => {
       if (!isYourTurn || board.isOver) return;
       askedRef.current.set(you.id, [...(askedRef.current.get(you.id) ?? []), rank]);
 
+      const before = board.players.flatMap((player) => player.hand.toArray());
+      motion.capture();
       const result = board.ask(rank);
+      animateBooked(before);
       if (result.gotCards > 0) {
         note(`You asked for ${rankName(rank)}s and took ${result.gotCards}. Go again.`);
       } else if (result.drewAskedRank) {
@@ -69,7 +86,7 @@ export function GoFishScreen() {
       }
       refresh();
     },
-    [board, isYourTurn, you, note, refresh],
+    [board, isYourTurn, you, note, refresh, motion, animateBooked],
   );
 
   useEffect(() => {
@@ -98,7 +115,10 @@ export function GoFishScreen() {
       }
 
       askedRef.current.set(cpu.id, [...(askedRef.current.get(cpu.id) ?? []), rank]);
+      const before = board.players.flatMap((member) => member.hand.toArray());
+      motion.capture();
       const result = board.ask(rank);
+      animateBooked(before);
 
       if (result.gotCards > 0) {
         note(`Computer asked for ${rankName(rank)}s and took ${result.gotCards}.`);
@@ -120,7 +140,7 @@ export function GoFishScreen() {
   const askable = board.ranksInHand(you);
 
   return (
-    <div className="game">
+    <div className="game" ref={motion.rootRef}>
       <div className="game__header">
         <div>
           <h1 className="game__title">Go Fish</h1>
@@ -166,11 +186,11 @@ export function GoFishScreen() {
       )}
 
       <section className="gofish__scores" aria-label="Books">
-        <div className="gofish__score">
+        <div className="gofish__score" data-book-target="you">
           <span className="gofish__score-name">Your books</span>
           <span className="gofish__score-value">{board.bookCountFor(you)}</span>
         </div>
-        <div className="gofish__score">
+        <div className="gofish__score" data-book-target="cpu">
           <span className="gofish__score-name">Computer books</span>
           <span className="gofish__score-value">{board.bookCountFor(cpu)}</span>
         </div>
@@ -180,11 +200,20 @@ export function GoFishScreen() {
         </div>
       </section>
 
+      <section className="gofish__stock" data-card-motion-source aria-label={`${board.stock.size} cards in stock`}>
+        <PlayingCard
+          card={board.stock.peek()}
+          faceDown
+          motionId={board.stock.peek() ? cardMotionId(board.stock.peek()!) : undefined}
+        />
+        <span>{board.stock.size} in stock</span>
+      </section>
+
       <section className="c8__opponent" aria-label="Computer hand">
         <span className="c8__seat-label">Computer holds {cpu.handSize}</span>
         <div className="c8__opponent-cards">
-          {Array.from({ length: cpu.handSize }, (_, i) => (
-            <PlayingCard key={i} faceDown />
+          {cpu.hand.toArray().map((card) => (
+            <PlayingCard key={cardMotionId(card)} card={card} faceDown motionId={cardMotionId(card)} />
           ))}
         </div>
       </section>
@@ -220,7 +249,7 @@ export function GoFishScreen() {
         <span className="c8__seat-label">Your hand</span>
         <div className="c8__hand-cards">
           {you.hand.toArray().map((card) => (
-            <PlayingCard key={`${card.suit}-${card.rank}`} card={card} />
+            <PlayingCard key={`${card.suit}-${card.rank}`} card={card} motionId={cardMotionId(card)} />
           ))}
         </div>
       </section>
