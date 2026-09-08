@@ -9,16 +9,41 @@
   background: transparent;
   box-shadow: var(--shadow-card);
   transition: transform 180ms var(--ease), box-shadow 180ms var(--ease);
+  perspective: 800px;
+  touch-action: none;
 }
 
-.playing-card img {
+.playing-card__flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 360ms var(--ease);
+}
+
+.playing-card.is-facedown .playing-card__flip { transform: rotateY(180deg); }
+
+.playing-card.is-flip-in .playing-card__flip { animation: card-flip-in 360ms var(--ease) both; }
+
+@keyframes card-flip-in {
+  from { transform: rotateY(-180deg); }
+  to { transform: rotateY(0); }
+}
+
+.playing-card__face {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   border-radius: var(--radius-card);
   object-fit: cover;
   user-select: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
+
+.playing-card__face--back { transform: rotateY(180deg); }
 
 .playing-card.is-interactive:hover {
   transform: translateY(-4px);
@@ -35,6 +60,8 @@
   transform: translateY(-10px);
   box-shadow: var(--shadow-lift), 0 0 0 3px var(--accent);
 }
+
+.playing-card.is-dragging { opacity: 0.22; }
 
 .playing-card.is-playable::after {
   content: '';
@@ -74,4 +101,28 @@ button.card-slot:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.card-slot.is-playable {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.card-motion-clone {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 20;
+  margin: 0;
+  pointer-events: none;
+  transform-origin: top left;
+}
+
+.card-drag-clone {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 20;
+  margin: 0;
+  pointer-events: none;
+  transform-origin: center;
+  opacity: 0.92;
 }
