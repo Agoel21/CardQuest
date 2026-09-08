@@ -30,13 +30,19 @@ export function useCardDrag<T>(onDrop: (data: T, target: string) => boolean) {
     listenersRef.current?.abort();
     listenersRef.current = null;
     dragRef.current = null;
+    if (accepted) {
+      // The board's FLIP transition now owns the accepted move. Keeping the
+      // drag clone alive here made it look like the card travelled twice.
+      drag.element.remove();
+      setData(null);
+      return;
+    }
     const targetRect = target?.getBoundingClientRect();
     const x = targetRect ? targetRect.left : drag.origin.left;
     const y = targetRect ? targetRect.top : drag.origin.top;
-    const scale = accepted ? 0.82 : 1;
     const animation = drag.element.animate(
-      [{ transform: drag.element.style.transform, opacity: 0.92 }, { transform: `translate(${x}px, ${y}px) scale(${scale})`, opacity: accepted ? 0 : 1 }],
-      { duration: accepted ? 170 : 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+      [{ transform: drag.element.style.transform, opacity: 0.92 }, { transform: `translate(${x}px, ${y}px)`, opacity: 1 }],
+      { duration: 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
     );
     animation.finished.finally(() => drag.element.remove()).catch(() => drag.element.remove());
     setData(null);

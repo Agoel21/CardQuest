@@ -373,6 +373,16 @@ export function HeartsScreen() {
         {' '}Highlighted cards in your hand are legal plays.
       </p>
 
+      <section className="game__how-to" aria-labelledby="hearts-how-to">
+        <h2 id="hearts-how-to">How to play</h2>
+        <ol>
+          <li>Choose three cards to pass when a hand begins, except on held hands.</li>
+          <li>Follow the suit led whenever you can. The highest card in the led suit takes the trick.</li>
+          <li>Avoid hearts and the queen of spades. They add points to tricks you take.</li>
+          <li>Once a score reaches 100, the lowest total wins. Taking every point card shoots the moon.</li>
+        </ol>
+      </section>
+
       <p className="visually-hidden">
         {yourHand.map((c) => cardLabel(c)).join(', ')}
       </p>

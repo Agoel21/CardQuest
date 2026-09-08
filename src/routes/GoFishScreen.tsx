@@ -253,6 +253,16 @@ export function GoFishScreen() {
           ))}
         </div>
       </section>
+
+      <section className="game__how-to" aria-labelledby="go-fish-how-to">
+        <h2 id="go-fish-how-to">How to play</h2>
+        <ol>
+          <li>Ask for a rank that appears in your hand.</li>
+          <li>If the computer has that rank, you take every matching card and ask again.</li>
+          <li>If not, draw from the stock. Drawing the asked rank earns another turn.</li>
+          <li>Collect four cards of a rank to make a book. Most books wins.</li>
+        </ol>
+      </section>
     </div>
   );
 }
