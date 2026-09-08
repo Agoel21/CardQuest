@@ -117,12 +117,27 @@ button.card-slot:hover {
   transform-origin: top left;
 }
 
+/*
+ * The floating copy that follows the pointer. It wraps the grabbed card plus
+ * everything stacked on top of it, each child absolutely placed, so dragging
+ * a run carries the whole run.
+ */
 .card-drag-clone {
   position: fixed;
   inset: 0 auto auto 0;
-  z-index: 20;
+  /* Above the sticky topbar, which sits at 20. */
+  z-index: 60;
   margin: 0;
   pointer-events: none;
   transform-origin: center;
   opacity: 0.92;
+  overflow: visible;
+}
+
+/* Cloned cards are positioned by inline styles, so their normal stacking
+   margins and hover transitions must not fight that. */
+.card-drag-clone .playing-card {
+  margin: 0 !important;
+  transition: none !important;
+  box-shadow: var(--shadow-lift);
 }

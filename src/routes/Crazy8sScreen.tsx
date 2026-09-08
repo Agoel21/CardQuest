@@ -142,11 +142,12 @@ export function Crazy8sScreen() {
   });
 
   const yourHand = you.hand.toArray();
-  const drag = useCardDrag<Card>(useCallback((card, target) => {
+  const drag = useCardDrag<Card>(useCallback((card, target, releaseRect, ids) => {
     if (target !== 'c8-table' || !isYourTurn || winner || board.awaitingSuitChoice || !board.isLegalPlay(card)) {
       return false;
     }
     motion.capture();
+    motion.noteRelease(ids, releaseRect);
     board.playCard(card);
     setMessage(board.awaitingSuitChoice ? 'Pick a suit.' : 'Computer is thinking.');
     refresh();

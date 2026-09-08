@@ -137,7 +137,7 @@ export function KlondikeScreen() {
   );
 
   const won = board.isWon;
-  const drag = useCardDrag<Selection>(useCallback((dragged, target) => {
+  const drag = useCardDrag<Selection>(useCallback((dragged, target, releaseRect, ids) => {
     const run = dragged.source.active.toArray().slice(dragged.source.active.indexOf(dragged.card));
     if (run.length === 0) return false;
     if (target.startsWith('foundation-')) {
@@ -146,6 +146,7 @@ export function KlondikeScreen() {
       const foundation = board.foundationFor(suit);
       if (!foundation.tryStack(dragged.card)) return false;
       motion.capture();
+      motion.noteRelease(ids, releaseRect);
       dragged.source.takeFrom(dragged.card);
       setSelection(null);
       setMoves((moves) => moves + 1);
@@ -157,6 +158,7 @@ export function KlondikeScreen() {
     const destination = board.columns[columnIndex];
     if (!destination || destination === dragged.source || !destination.canAccept(run)) return false;
     motion.capture();
+    motion.noteRelease(ids, releaseRect);
     dragged.source.takeFrom(dragged.card);
     destination.tryAdd(run);
     setSelection(null);
@@ -220,8 +222,10 @@ export function KlondikeScreen() {
               card={wasteTop}
               motionId={cardMotionId(wasteTop)}
               flipIn
+              dragging={!!drag.data && drag.data.source === board.waste && sameCard(drag.data.card, wasteTop)}
               selected={!!selection && sameCard(selection.card, wasteTop)}
-              onClick={() => handleCardClick(board.waste, wasteTop)}
+              onClick={() => { if (!drag.consumeClick()) handleCardClick(board.waste, wasteTop); }}
+              onPointerDown={(event) => drag.start({ source: board.waste, card: wasteTop }, event)}
             />
           ) : (
             /* An empty dashed slot reads as "nothing here" on its own; a
@@ -264,7 +268,14 @@ export function KlondikeScreen() {
         }}
       >
         {board.columns.map((column, columnIndex) => (
-          <div className="klondike__column" key={columnIndex}>
+          <div
+            className="klondike__column"
+            key={columnIndex}
+            // The whole column accepts a drop, not just the cards in it.
+            // Dropping on a face-down card, or in the space below a short
+            // column, previously found no target and silently failed.
+            data-drop-target={`column-${columnIndex}`}
+          >
             {column.isEmpty ? (
               <CardSlot label="King" dropTarget={`column-${columnIndex}`} playable={!!drag.data && column.canAccept(drag.data.source.active.toArray().slice(drag.data.source.active.indexOf(drag.data.card)))} onClick={() => handleEmptyColumn(column)} />
             ) : (

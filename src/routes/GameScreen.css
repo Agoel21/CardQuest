@@ -153,7 +153,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: calc(var(--card-width) / (234 / 333));
+  /* Tall enough that a drop aimed just below a short column still lands on
+     the column rather than falling through to the page. */
+  min-height: calc(var(--card-width) / (234 / 333) * 2.2);
 }
 
 /*
@@ -283,7 +285,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: calc(var(--card-width) / (234 / 333));
+  min-height: calc(var(--card-width) / (234 / 333) * 2.2);
 }
 
 /*

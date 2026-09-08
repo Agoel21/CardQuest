@@ -32,6 +32,16 @@ function cardPositions(root: HTMLElement): Map<string, CardPosition> {
 export function useCardMotion(version: number) {
   const rootRef = useRef<HTMLDivElement>(null);
   const beforeRef = useRef<Map<string, CardPosition> | null>(null);
+  /**
+   * Cards the player physically dragged, and where they let go.
+   *
+   * Without this, FLIP replays the whole journey the player just made by
+   * hand: it captures the card at its ORIGINAL slot, so on release the card
+   * snaps back to where it started and flies across again. Overriding the
+   * start position with the release point turns that into a short settle
+   * from wherever the card was dropped into its final resting slot.
+   */
+  const releasedRef = useRef<Map<string, CardPosition>>(new Map());
   const dealPendingRef = useRef(true);
   const animationsRef = useRef<Animation[]>([]);
 
@@ -43,6 +53,11 @@ export function useCardMotion(version: number) {
   const capture = useCallback(() => {
     const root = rootRef.current;
     if (root) beforeRef.current = cardPositions(root);
+  }, []);
+
+  /** Record where a dragged card was released, so FLIP starts from there. */
+  const noteRelease = useCallback((ids: string[], rect: DOMRect) => {
+    for (const id of ids) releasedRef.current.set(id, { left: rect.left, top: rect.top });
   }, []);
 
   const queueDeal = useCallback(() => {
@@ -79,6 +94,7 @@ export function useCardMotion(version: number) {
     const root = rootRef.current;
     if (!root || prefersReducedMotion()) {
       beforeRef.current = null;
+      releasedRef.current.clear();
       dealPendingRef.current = false;
       return;
     }
@@ -93,7 +109,9 @@ export function useCardMotion(version: number) {
       const id = element.dataset.cardMotionId;
       if (!id) return;
       const rect = element.getBoundingClientRect();
-      const first = before?.get(id);
+      // A card the player dragged starts from where they let go of it, not
+      // from the slot it used to occupy.
+      const first = releasedRef.current.get(id) ?? before?.get(id);
       const dx = first ? first.left - rect.left : sourceRect ? sourceRect.left - rect.left : 0;
       const dy = first ? first.top - rect.top : sourceRect ? sourceRect.top - rect.top : 0;
       if (!first && !additions) return;
@@ -115,10 +133,11 @@ export function useCardMotion(version: number) {
 
     animationsRef.current.push(...started);
     beforeRef.current = null;
+    releasedRef.current.clear();
     dealPendingRef.current = false;
   }, [version]);
 
   useEffect(() => stopAnimations, [stopAnimations]);
 
-  return { rootRef: rootRef as RefObject<HTMLDivElement>, capture, queueDeal, animateLeaving };
+  return { rootRef: rootRef as RefObject<HTMLDivElement>, capture, noteRelease, queueDeal, animateLeaving };
 }
