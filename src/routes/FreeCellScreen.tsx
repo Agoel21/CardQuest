@@ -201,7 +201,7 @@ export function FreeCellScreen() {
   );
 
   const won = board.isWon;
-  const drag = useCardDrag<Selection>(useCallback((dragged, target) => {
+  const drag = useCardDrag<Selection>(useCallback((dragged, target, releaseRect, ids) => {
     const run = dragged.kind === 'column' ? runFrom(dragged.columnIndex, dragged.card) : [dragged.card];
     if (run.length === 0) return false;
     const commitDrag = () => {
@@ -210,6 +210,7 @@ export function FreeCellScreen() {
       refresh();
     };
     motion.capture();
+    motion.noteRelease(ids, releaseRect);
     if (target.startsWith('foundation-')) {
       const suit = Number(target.slice('foundation-'.length)) as Suit;
       if (dragged.kind === 'freeCell') {
@@ -341,7 +342,12 @@ export function FreeCellScreen() {
         }}
       >
         {board.columns.map((column, columnIndex) => (
-          <div className="freecell__column" key={columnIndex}>
+          <div
+            className="freecell__column"
+            key={columnIndex}
+            // The whole column accepts a drop, not just the cards in it.
+            data-drop-target={`column-${columnIndex}`}
+          >
             {column.isEmpty ? (
               <CardSlot label="" srLabel="Empty column" dropTarget={`column-${columnIndex}`} playable={!!drag.data && (drag.data.kind === 'freeCell' ? board.canMoveToColumn([drag.data.card], columnIndex) : board.canMoveToColumn(runFrom(drag.data.columnIndex, drag.data.card), columnIndex))} onClick={() => handleEmptyColumnClick(columnIndex)} />
             ) : (

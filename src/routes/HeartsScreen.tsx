@@ -102,7 +102,12 @@ export function HeartsScreen() {
   }, [board, selectedPass, you.id, refresh, motion]);
 
   const playCard = useCallback(
-    (card: Card) => {
+    /**
+     * `release` is supplied when the move came from a drag, so the follow-up
+     * animation starts where the player let go rather than replaying the drag
+     * from the card's old position in the hand.
+     */
+    (card: Card, release?: { rect: DOMRect; ids: string[] }) => {
       if (!isYourTurn || winner || board.phase !== 'playing') return;
       const legal = board.legalPlaysFor(you);
       if (!legal.some((c) => sameCard(c, card))) {
@@ -110,6 +115,7 @@ export function HeartsScreen() {
         return;
       }
       motion.capture();
+      if (release) motion.noteRelease(release.ids, release.rect);
       board.playCard(card);
       if (board.currentTrick.length === 4) {
         const entries = [...board.currentTrick];
@@ -210,10 +216,10 @@ export function HeartsScreen() {
   const yourHand = you.hand.toArray();
   const visibleTrick = collectedTrick?.entries ?? board.currentTrick;
   const leaderOfTrick = visibleTrick[0]?.playerId;
-  const drag = useCardDrag<Card>(useCallback((card, target) => {
+  const drag = useCardDrag<Card>(useCallback((card, target, releaseRect, ids) => {
     if (target !== 'hearts-trick' || !isYourTurn || winner || board.phase !== 'playing') return false;
     if (!board.legalPlaysFor(you).some((legal) => sameCard(legal, card))) return false;
-    playCard(card);
+    playCard(card, { rect: releaseRect, ids });
     return true;
   }, [board, isYourTurn, winner, you, playCard]));
 
