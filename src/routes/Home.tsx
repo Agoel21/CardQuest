@@ -30,10 +30,22 @@ const GAMES = [
     players: 'Solo',
   },
   {
+    to: '/go-fish',
+    name: 'Go Fish',
+    blurb: 'Ask for the ranks you hold, and remember what your opponent asks for.',
+    players: 'vs computer',
+  },
+  {
     to: '/hearts',
     name: 'Hearts',
     blurb: 'Avoid the points. Pass three, duck the queen of spades, or shoot the moon.',
     players: 'vs 3 computers',
+  },
+  {
+    to: '/play-a-friend',
+    name: 'Play a friend',
+    blurb: 'Crazy 8s against someone on another computer, connected browser to browser.',
+    players: 'Two players',
   },
 ];
 

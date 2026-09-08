@@ -8,6 +8,7 @@ import { KlondikeScreen } from './routes/KlondikeScreen';
 import { Crazy8sScreen } from './routes/Crazy8sScreen';
 import { FreeCellScreen } from './routes/FreeCellScreen';
 import { HeartsScreen } from './routes/HeartsScreen';
+import { GoFishScreen } from './routes/GoFishScreen';
 import { MultiplayerScreen } from './routes/MultiplayerScreen';
 
 /**
@@ -25,6 +26,7 @@ const router = createHashRouter([
       { path: 'crazy-8s', element: <Crazy8sScreen /> },
       { path: 'freecell', element: <FreeCellScreen /> },
       { path: 'hearts', element: <HeartsScreen /> },
+      { path: 'go-fish', element: <GoFishScreen /> },
       { path: 'play-a-friend', element: <MultiplayerScreen /> },
     ],
   },

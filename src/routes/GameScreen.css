@@ -340,3 +340,50 @@
   letter-spacing: 0.18em;
   color: var(--accent);
 }
+
+/* ---- Go Fish ---- */
+
+.gofish__scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(20px, 5vw, 48px);
+  padding: 16px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-surface);
+  background: var(--surface-slot);
+}
+
+.gofish__score { display: flex; flex-direction: column; gap: 2px; }
+
+.gofish__score-name {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+}
+
+.gofish__score-value {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+}
+
+.gofish__log {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 5.4em;
+}
+
+.gofish__log-line {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.gofish__log-line.is-old {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.gofish__ranks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}

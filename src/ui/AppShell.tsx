@@ -17,6 +17,7 @@ export function AppShell() {
           <NavLink to="/crazy-8s">Crazy 8s</NavLink>
           <NavLink to="/freecell">FreeCell</NavLink>
           <NavLink to="/hearts">Hearts</NavLink>
+          <NavLink to="/go-fish">Go Fish</NavLink>
           <NavLink to="/play-a-friend">Play a friend</NavLink>
         </nav>
 
