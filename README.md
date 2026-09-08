@@ -3,9 +3,14 @@
 Five card games that run entirely in the browser. No install, no account, no
 backend, and no server keeping score.
 
-![Klondike in CardQuest](docs/klondike.png)
+![Crazy 8s being played against the computer opponent](docs/gameplay.gif)
+
+*A real game of Crazy 8s against the computer. Nothing here is staged: the frames
+are captured from the running app.*
 
 **[Play it here](https://agoel21.github.io/CardQuest/)**
+
+![Klondike in CardQuest](docs/klondike.png)
 
 ## The games
 
