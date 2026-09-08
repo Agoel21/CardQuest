@@ -6,6 +6,8 @@ import { AppShell } from './ui/AppShell';
 import { Home } from './routes/Home';
 import { KlondikeScreen } from './routes/KlondikeScreen';
 import { Crazy8sScreen } from './routes/Crazy8sScreen';
+import { FreeCellScreen } from './routes/FreeCellScreen';
+import { HeartsScreen } from './routes/HeartsScreen';
 
 /**
  * Hash routing, deliberately: the site is served from GitHub Pages, which has
@@ -20,6 +22,8 @@ const router = createHashRouter([
       { index: true, element: <Home /> },
       { path: 'klondike', element: <KlondikeScreen /> },
       { path: 'crazy-8s', element: <Crazy8sScreen /> },
+      { path: 'freecell', element: <FreeCellScreen /> },
+      { path: 'hearts', element: <HeartsScreen /> },
     ],
   },
 ]);

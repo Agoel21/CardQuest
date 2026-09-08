@@ -23,6 +23,18 @@ const GAMES = [
     blurb: 'Shed your hand by matching rank or suit. Eights are wild.',
     players: 'vs computer',
   },
+  {
+    to: '/freecell',
+    name: 'FreeCell',
+    blurb: 'Every card face up from the start. Four free cells, no luck to hide behind.',
+    players: 'Solo',
+  },
+  {
+    to: '/hearts',
+    name: 'Hearts',
+    blurb: 'Avoid the points. Pass three, duck the queen of spades, or shoot the moon.',
+    players: 'vs 3 computers',
+  },
 ];
 
 export function Home() {

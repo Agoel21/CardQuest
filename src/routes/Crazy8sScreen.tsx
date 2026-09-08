@@ -7,7 +7,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Card, makeRng, Player, randomSeed, Rank, Suit, suitName } from '../engine';
 import { Crazy8sBoard } from '../games/crazy8s/board';
-import { Difficulty, STRATEGIES } from '../ai/strategy';
+import { Difficulty, DIFFICULTY_LABELS, STRATEGIES } from '../ai/strategy';
 import { CardSlot, PlayingCard } from '../ui/PlayingCard';
 import './GameScreen.css';
 
@@ -151,9 +151,11 @@ export function Crazy8sScreen() {
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value as Difficulty)}
             >
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+              {(['easy', 'medium', 'hard'] as Difficulty[]).map((level) => (
+                <option key={level} value={level}>
+                  {DIFFICULTY_LABELS[level]}
+                </option>
+              ))}
             </select>
           </label>
           <button type="button" className="btn btn--primary" onClick={newGame}>

@@ -15,6 +15,8 @@ export function AppShell() {
         <nav className="topbar__nav" aria-label="Games">
           <NavLink to="/klondike">Klondike</NavLink>
           <NavLink to="/crazy-8s">Crazy 8s</NavLink>
+          <NavLink to="/freecell">FreeCell</NavLink>
+          <NavLink to="/hearts">Hearts</NavLink>
         </nav>
 
         <button
