@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { Logo } from './Logo';
 import { useTheme } from './useTheme';
 import './AppShell.css';
 
@@ -9,7 +10,8 @@ export function AppShell() {
     <div className="app-shell">
       <header className="topbar">
         <NavLink to="/" className="topbar__brand">
-          CardQuest
+          <Logo />
+          <span>CardQuest</span>
         </NavLink>
 
         <nav className="topbar__nav" aria-label="Games">
